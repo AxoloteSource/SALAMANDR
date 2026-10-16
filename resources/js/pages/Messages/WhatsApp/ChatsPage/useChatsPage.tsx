@@ -1,112 +1,108 @@
+import { useAxios } from '@/hooks/useAxios'
+import { IIncomingContact, IIncomingMessage } from '@/services/messages/whatsapp-incoming/interfaces/IIncoming'
+import { useServiceIncomingContacts, useServiceIncomingMessages } from '@/services/messages/whatsapp-incoming/useServiceWhatsAppIncoming'
 import { IChatList } from '@axolotesource/ui/interfaces/models/Chat/IChat'
 import { IMessageList } from '@axolotesource/ui/interfaces/models/Message/IMessage'
-import { useMutation } from '@tanstack/react-query'
-import { AxiosResponse } from 'axios'
 import { useMemo, useState } from 'react'
 
-const mockChatList: IChatList[] = [
-  {
-    id: 1,
-    title: 'María García',
-    subtitle: 'Hola, ¿está disponible el envío para hoy?',
-    optionalMessage: '10:30',
-    userId: '2'
-  },
-  {
-    id: 2,
-    title: 'Juan Pérez',
-    subtitle: '¡Muchas gracias!',
-    optionalMessage: '09:15',
-    userId: '3'
-  },
-  {
-    id: 3,
-    title: 'Laura Martínez',
-    subtitle: 'Recibí el código de verificación',
-    optionalMessage: '08:40',
-    userId: '4'
-  }
-]
+const CONTACTS_LIMIT = 30
+const MESSAGES_LIMIT = 50
 
-const mockOtherContactsList: IChatList[] = [
-  {
-    id: 4,
-    title: 'Carlos López',
-    subtitle: 'Última conexión hace 2 horas',
-    optionalMessage: 'Ayer',
-    userId: '5'
-  },
-  {
-    id: 5,
-    title: 'Ana Torres',
-    subtitle: 'Última conexión hace 1 día',
-    optionalMessage: 'Lun',
-    userId: '6'
-  }
-]
+const formatTime = (waTimestamp?: number | null, iso?: string | null): string => {
+  const date = waTimestamp ? new Date(waTimestamp * 1000) : iso ? new Date(iso) : null
 
-const mockMessages: Record<number, IMessageList[]> = {
-  1: [
-    { message: 'Hola, ¿está disponible el envío para hoy?', isSender: false, timeAgo: '10:30', imagePath: '' },
-    { message: 'Hola María, sí, claro. ¿A qué hora prefieres?', isSender: true, timeAgo: '10:32', imagePath: '' },
-    { message: 'A las 4 de la tarde estaría perfecto.', isSender: false, timeAgo: '10:33', imagePath: '' }
-  ],
-  2: [
-    { message: '¿Me confirmas el estado de mi pedido?', isSender: false, timeAgo: '09:10', imagePath: '' },
-    { message: 'Tu pedido ya fue enviado.', isSender: true, timeAgo: '09:12', imagePath: '' },
-    { message: '¡Muchas gracias!', isSender: false, timeAgo: '09:15', imagePath: '' }
-  ],
-  3: [
-    { message: 'Recibí el código de verificación', isSender: false, timeAgo: '08:40', imagePath: '' },
-    { message: 'Perfecto, gracias por confirmar.', isSender: true, timeAgo: '08:42', imagePath: '' }
-  ]
+  if (!date || Number.isNaN(date.getTime())) {
+    return ''
+  }
+
+  const isToday = date.toDateString() === new Date().toDateString()
+
+  return isToday ? date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : date.toLocaleDateString()
 }
 
-const scrollProps = { hasNextPage: false, isFetchingNextPage: false, fetchNextPage: () => {} }
+const contactToChatList = (contact: IIncomingContact): IChatList => ({
+  id: contact.id,
+  title: contact.name || contact.phone,
+  subtitle: contact.last_message_text ?? '',
+  optionalMessage: formatTime(null, contact.last_message_at),
+  userId: String(contact.id)
+})
+
+const messageToMessageList = (message: IIncomingMessage): IMessageList => ({
+  message: message.text ?? '',
+  isSender: false,
+  timeAgo: formatTime(message.wa_timestamp, message.created_at),
+  imagePath: (message.media?.url as string) ?? ''
+})
 
 export const useChatsPage = () => {
-  const [selectedChat, setSelectedChat] = useState<number | null>(null)
+  const { user } = useAxios()
+  const [selectedChat, setSelectedChatState] = useState<number | null>(null)
   const [selectedUser, setSelectedUser] = useState('')
   const [showMenu, setShowMenu] = useState(false)
   const [searchIndex, setSearchIndex] = useState('')
+  const [contactsPage, setContactsPage] = useState(1)
+  const [messagesPage, setMessagesPage] = useState(1)
 
-  const chatList = useMemo(() => {
-    const term = searchIndex.toLowerCase()
+  const setSelectedChat = (id: number) => {
+    setSelectedChatState(id)
+    setMessagesPage(1)
+  }
 
-    return mockChatList.filter((chat) => chat.title.toLowerCase().includes(term))
-  }, [searchIndex])
-
-  const otherContactsList = useMemo(() => {
-    const term = searchIndex.toLowerCase()
-
-    return mockOtherContactsList.filter((chat) => chat.title.toLowerCase().includes(term))
-  }, [searchIndex])
-
-  const selectedChatData = chatList.find((chat) => chat.id === selectedChat) ?? null
-  const messages = selectedChat !== null ? (mockMessages[selectedChat] ?? []) : []
-
-  const handleToggleMessagesScroll = () => {}
-
-  const { mutateAsync: sendMessage } = useMutation({
-    mutationFn: async (data: unknown) => ({ data }) as AxiosResponse
+  const contactsQuery = useServiceIncomingContacts(true, {
+    page: contactsPage,
+    limit: CONTACTS_LIMIT,
+    search: searchIndex || null
   })
 
+  const messagesQuery = useServiceIncomingMessages(selectedChat, selectedChat != null, {
+    page: messagesPage,
+    limit: MESSAGES_LIMIT,
+    order_by: 'id',
+    order: 'asc'
+  })
+
+  const chatList = useMemo<IChatList[]>(() => (contactsQuery.data?.data ?? []).map(contactToChatList), [contactsQuery.data])
+
+  const messages = useMemo<IMessageList[]>(() => (messagesQuery.data?.data ?? []).map(messageToMessageList), [messagesQuery.data])
+
+  const selectedChatData = chatList.find((chat) => chat.id === selectedChat) ?? null
+
+  const contactsHasNext = (contactsQuery.data?.current_page ?? 1) < (contactsQuery.data?.last_page ?? 1)
+  const messagesHasNext = (messagesQuery.data?.current_page ?? 1) < (messagesQuery.data?.last_page ?? 1)
+
   return {
+    // contacts
     chatList,
-    otherContactsList,
-    currentUser: { name: 'Admin', roleName: 'Administrator' },
+    otherContactsList: [] as IChatList[],
+    contactsLoading: contactsQuery.isLoading,
+    contactsError: contactsQuery.isError,
+    refetchContacts: contactsQuery.refetch,
+    // messages
+    messages,
+    messagesLoading: messagesQuery.isLoading,
+    messagesError: messagesQuery.isError,
+    refetchMessages: messagesQuery.refetch,
+    // selection / ui
+    currentUser: { name: user?.name ?? 'Admin', roleName: user?.role?.name ?? '' },
     setSelectedChat,
     setSearchIndex,
-    scrollChatListProps: scrollProps,
-    scrollMessageListProps: scrollProps,
-    handleToggleMessagesScroll,
+    scrollChatListProps: {
+      hasNextPage: contactsHasNext,
+      isFetchingNextPage: contactsQuery.isFetching,
+      fetchNextPage: () => contactsHasNext && setContactsPage((page) => page + 1)
+    },
+    scrollMessageListProps: {
+      hasNextPage: messagesHasNext,
+      isFetchingNextPage: messagesQuery.isFetching,
+      fetchNextPage: () => messagesHasNext && setMessagesPage((page) => page + 1)
+    },
+    handleToggleMessagesScroll: () => undefined,
     selectUser: setSelectedUser,
     selectedUser,
     selectedChat,
     selectedChatData,
-    messages,
     showMenu,
-    setShowMenu,
-    sendMessage
+    setShowMenu
   }
 }

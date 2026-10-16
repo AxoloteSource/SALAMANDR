@@ -37,7 +37,7 @@
     "vite": "^8.0.0"
   },
   "dependencies": {
-    "@axolotesource/ui": "link:../ui",
+    "@axolotesource/ui": "github:AxoloteSource/ui#main",
     "@mantine/core": "^8.3.13",
     "@mantine/hooks": "^8.3.7",
     "@reduxjs/toolkit": "^2.11.2",
