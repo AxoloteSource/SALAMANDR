@@ -1,0 +1,4 @@
+@import 'tailwindcss';
+@import '@axolotesource/ui/styles.css';
+
+@source '../views';

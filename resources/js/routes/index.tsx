@@ -1,0 +1,44 @@
+import AxoloteUIAppProvider from '@/appComponents/AxoloteUIAppProvider/AxoloteUIAppProvider'
+import { useAppMenu } from '@/hooks/useAppMenu'
+import { useAxios } from '@/hooks/useAxios'
+import BlankLayout from '@axolotesource/ui/components/Layouts/BlankLayout'
+import DefaultLayout from '@axolotesource/ui/components/Layouts/DefaultLayout'
+import { createBrowserRouter, Outlet, useLocation } from 'react-router-dom'
+import PrivateRouteWrapper from './PrivateRouteWrapper'
+import { routes } from './routes'
+
+/**
+ * Root shell: lives INSIDE RouterProvider so it can read the current location
+ * and fetch the per-app menu (HAG-9), while still wrapping every layout with the
+ * mandatory AxoloteUIProvider.
+ */
+const AppShell = () => {
+  const location = useLocation()
+  const { isAuth } = useAxios()
+  // Only fetch the per-app menu when authenticated (the endpoint needs a token).
+  const { menu } = useAppMenu(location.pathname, isAuth)
+
+  return (
+    <AxoloteUIAppProvider menu={menu}>
+      <Outlet />
+    </AxoloteUIAppProvider>
+  )
+}
+
+const finalRoutes = routes.map((route) => {
+  const element = route.layout === 'blank' ? <BlankLayout>{route.element}</BlankLayout> : <DefaultLayout>{route.element}</DefaultLayout>
+
+  return {
+    ...route,
+    element: route.private ? <PrivateRouteWrapper route={route} element={element} /> : element
+  }
+})
+
+const router = createBrowserRouter([
+  {
+    element: <AppShell />,
+    children: finalRoutes
+  }
+])
+
+export default router
