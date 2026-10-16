@@ -1,9 +1,11 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./resources/js/*"]
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./resources/js/*"],
+            "@axolotesource/ui": ["./node_modules/@axolotesource/ui/dist/index.d.ts"],
+            "@axolotesource/ui/*": ["./node_modules/@axolotesource/ui/dist/*/index.d.ts", "./node_modules/@axolotesource/ui/dist/*"]
+        }
     }
-  }
 }

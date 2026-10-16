@@ -166,6 +166,11 @@ return [
                                 'icon' => 'Info',
                                 'name' => 'whatsapp_info',
                             ],
+                            'salamandr-messages-whatsapp-webhook' => [
+                                'path' => '/messages/whatsapp/webhook',
+                                'icon' => 'Webhook',
+                                'name' => 'webhook',
+                            ],
                         ],
                     ],
                     'salamandr-messages-email' => [

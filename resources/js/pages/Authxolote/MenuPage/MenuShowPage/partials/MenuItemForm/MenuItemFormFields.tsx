@@ -6,24 +6,15 @@ import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IO
 import Switch from '@axolotesource/ui/components/Form/Switch/Switch'
 import InputSelect from '@axolotesource/ui/components/Form/Select/Select'
 import { Color } from '@/enums/Color'
+import { MENU_ICONS } from '@/configs/menuIcons'
 import { IMenuItem } from '@/interfaces/models/MenuItem/IMenuItem'
 import { Form, Formik } from 'formik'
-import { createElement, type ComponentType } from 'react'
 import { components, OptionProps, SingleValueProps, SingleValue } from 'react-select'
-import * as Icons from 'lucide-react'
-import { type LucideProps } from 'lucide-react'
 import { IInitialValuesMenuItem, useMenuItemForm } from './useMenuItemForm'
-
-const lucideIcons = Icons as unknown as Record<string, ComponentType<LucideProps>>
 
 const ICONS_TO_SHOW = 50
 
-const iconOptions: IOptions[] = Object.keys(Icons)
-  .filter((name) => {
-    const icon = lucideIcons[name] as unknown
-
-    return typeof icon === 'object' && icon !== null && '$$typeof' in icon && !name.endsWith('Icon') && !name.startsWith('create')
-  })
+const iconOptions: IOptions[] = Object.keys(MENU_ICONS)
   .sort()
   .map((name) => ({ value: name, label: name }))
 
@@ -39,12 +30,12 @@ const filterIconOptions = (option: IOptions, inputValue: string): boolean => {
 
 const IconOption = (props: OptionProps<IOptions, false>) => {
   const { data } = props
-  const Icon = lucideIcons[data.value as string]
+  const Icon = MENU_ICONS[String(data.value)]
 
   return (
     <components.Option {...props}>
       <div className="flex items-center gap-2">
-        {Icon && createElement(Icon, { className: 'h-4 w-4 shrink-0' })}
+        {Icon && <Icon className="h-4 w-4 shrink-0" />}
         <span>{data.label}</span>
       </div>
     </components.Option>
@@ -53,12 +44,12 @@ const IconOption = (props: OptionProps<IOptions, false>) => {
 
 const IconSingleValue = (props: SingleValueProps<IOptions, false>) => {
   const { data } = props
-  const Icon = lucideIcons[data.value as string]
+  const Icon = MENU_ICONS[String(data.value)]
 
   return (
     <components.SingleValue {...props}>
       <div className="flex items-center gap-2">
-        {Icon && createElement(Icon, { className: 'h-4 w-4 shrink-0' })}
+        {Icon && <Icon className="h-4 w-4 shrink-0" />}
         <span>{data.label}</span>
       </div>
     </components.SingleValue>

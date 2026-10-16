@@ -44,6 +44,16 @@ const shellEn = {
   'salamandr-messages-whatsapp': 'WhatsApp',
   'salamandr-messages-email': 'Email',
   'salamandr-messages-push-notifications': 'Push notifications',
+  webhook: 'Webhook',
+  webhook_url: 'Webhook URL',
+  new_webhook_url: 'New webhook URL',
+  edit_webhook_url: 'Edit webhook URL',
+  invalid_url: 'Invalid URL',
+  url_is_required: 'The URL is required',
+  delete_webhook_confirmation_text: 'You will not be able to revert this',
+  webhook_url_deleted: 'Webhook URL deleted',
+  toggle_active: 'Enable / disable',
+  inactive: 'Inactive',
   ui: 'UI',
   menu: { catalogs: 'Catalogs', menus: 'Menus' }
 }
@@ -80,6 +90,16 @@ const shellEs: typeof shellEn = {
   'salamandr-messages-whatsapp': 'WhatsApp',
   'salamandr-messages-email': 'Correo',
   'salamandr-messages-push-notifications': 'Notificaciones push',
+  webhook: 'Webhook',
+  webhook_url: 'URL del webhook',
+  new_webhook_url: 'Nueva URL de webhook',
+  edit_webhook_url: 'Editar URL de webhook',
+  invalid_url: 'URL inválida',
+  url_is_required: 'La URL es obligatoria',
+  delete_webhook_confirmation_text: 'No podrás revertir este proceso',
+  webhook_url_deleted: 'URL de webhook eliminada',
+  toggle_active: 'Habilitar / deshabilitar',
+  inactive: 'Inactivo',
   ui: 'UI',
   menu: { catalogs: 'Catálogos', menus: 'Menús' }
 }

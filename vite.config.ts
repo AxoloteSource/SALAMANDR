@@ -5,8 +5,8 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 
-const installedPackageJson = resolve(__dirname, 'node_modules/@axolotesource/ui/package.json')
-const localPackageJson = resolve(__dirname, '../ui/package.json')
+const installedPackageJson = resolve(import.meta.dirname, 'node_modules/@axolotesource/ui/package.json')
+const localPackageJson = resolve(import.meta.dirname, '../ui/package.json')
 
 const axoloteUiPackage = JSON.parse(readFileSync(existsSync(installedPackageJson) ? installedPackageJson : localPackageJson, 'utf8'))
 
@@ -29,9 +29,6 @@ export default defineConfig(({ command }) => ({
       usePolling: true
     }
   },
-  esbuild: {
-    jsx: 'automatic'
-  },
   resolve: {
     dedupe: sharedDependencies,
     alias: [
@@ -39,21 +36,21 @@ export default defineConfig(({ command }) => ({
         ? [
             {
               find: '@axolotesource/ui/styles.css',
-              replacement: resolve(__dirname, '../ui/src/styles/index.css')
+              replacement: resolve(import.meta.dirname, '../ui/src/styles/index.css')
             },
             {
               find: /^@axolotesource\/ui$/,
-              replacement: resolve(__dirname, '../ui/src/index.ts')
+              replacement: resolve(import.meta.dirname, '../ui/src/index.ts')
             },
             {
               find: /^@axolotesource\/ui\//,
-              replacement: resolve(__dirname, '../ui/src') + '/'
+              replacement: resolve(import.meta.dirname, '../ui/src') + '/'
             }
           ]
         : []),
       {
         find: '@',
-        replacement: resolve(__dirname, 'resources/js')
+        replacement: resolve(import.meta.dirname, 'resources/js')
       }
     ]
   },

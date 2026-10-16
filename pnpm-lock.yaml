@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@axolotesource/ui':
         specifier: github:AxoloteSource/ui#main
-        version: https://codeload.github.com/AxoloteSource/ui/tar.gz/f85fb6d5a18a6ed409cffba574dc253099b366e8(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+        version: https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       '@mantine/core':
         specifier: ^8.3.13
         version: 8.3.18(@mantine/hooks@8.3.18(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -166,8 +166,8 @@ importers:
 
 packages:
 
-  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/f85fb6d5a18a6ed409cffba574dc253099b366e8':
-    resolution: {gitHosted: true, integrity: sha512-zL3ThfNZBbyv0jdpasE5VLrLeSVsMYXR9UdsK2BhLFPTE6SAhcK68WuvIQSKkScLB9DrmjD9c/jKBcp+WY/QKQ==, tarball: https://codeload.github.com/AxoloteSource/ui/tar.gz/f85fb6d5a18a6ed409cffba574dc253099b366e8}
+  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a':
+    resolution: {gitHosted: true, integrity: sha512-Rie5bFjOqS7cs1/RppsIgmd4oB14WBztCuePbg/R2CVjnuBpBXwfiSxp7+OrcfGDPuOxJNwcbZOWOrNPV2jgGw==, tarball: https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a}
     version: 0.1.0
     peerDependencies:
       '@tanstack/react-query': ^5.104.2
@@ -3074,7 +3074,7 @@ packages:
 
 snapshots:
 
-  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/f85fb6d5a18a6ed409cffba574dc253099b366e8(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
+  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@floating-ui/react': 0.27.20(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@headlessui/react': 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)

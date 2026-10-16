@@ -11,6 +11,7 @@ const PushNotificationPage = lazy(() => import('@/pages/Messages/PushNotificatio
 const CampaignPage = lazy(() => import('@/pages/Messages/Campaign/CampaignPage/CampaignPage'))
 const CampaignShowPage = lazy(() => import('@/pages/Messages/Campaign/CampaignShowPage/CampaignShowPage'))
 const UIPage = lazy(() => import('@/pages/Messages/UIPage/UIPage'))
+const WebhookPage = lazy(() => import('@/pages/Messages/WhatsApp/WebhookPage/WebhookPage'))
 
 export enum RoutesMessages {
   Home = '/messages',
@@ -18,6 +19,7 @@ export enum RoutesMessages {
   WhatsAppTemplates = '/messages/whatsapp-templates',
   WhatsAppTemplateShow = '/messages/whatsapp-templates/:id',
   WhatsAppChats = '/messages/whatsapp/chats',
+  WhatsAppWebhook = '/messages/whatsapp/webhook',
   Emails = '/messages/emails',
   PushNotifications = '/messages/push-notifications',
   Campaigns = '/messages/campaigns',
@@ -49,6 +51,11 @@ export const messagesRoutes: IRoute[] = [
   {
     path: RoutesMessages.WhatsAppChats,
     element: <ChatsPage />,
+    private: true
+  },
+  {
+    path: RoutesMessages.WhatsAppWebhook,
+    element: <WebhookPage />,
     private: true
   },
   {
