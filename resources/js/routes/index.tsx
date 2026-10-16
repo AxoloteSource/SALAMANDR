@@ -3,7 +3,7 @@ import { useAppMenu } from '@/hooks/useAppMenu'
 import { useAxios } from '@/hooks/useAxios'
 import BlankLayout from '@axolotesource/ui/components/Layouts/BlankLayout'
 import DefaultLayout from '@axolotesource/ui/components/Layouts/DefaultLayout'
-import { createBrowserRouter, Outlet, useLocation } from 'react-router-dom'
+import { createBrowserRouter, Outlet } from 'react-router-dom'
 import PrivateRouteWrapper from './PrivateRouteWrapper'
 import { routes } from './routes'
 
@@ -13,10 +13,9 @@ import { routes } from './routes'
  * mandatory AxoloteUIProvider.
  */
 const AppShell = () => {
-  const location = useLocation()
   const { isAuth } = useAxios()
-  // Only fetch the per-app menu when authenticated (the endpoint needs a token).
-  const { menu } = useAppMenu(location.pathname, isAuth)
+  // Unified menu (one slug, all sections); fetch only when authenticated.
+  const { menu } = useAppMenu(isAuth)
 
   return (
     <AxoloteUIAppProvider menu={menu}>

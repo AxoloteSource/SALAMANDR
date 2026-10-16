@@ -18,9 +18,7 @@ export const useLoginForm = ({ mutateAsync }: IFormsMutator): IFormikProps<IInit
   const { onSubmit } = useOnSubmit<IInitialValuesLogin, ILoginResponse>({
     mutateAsync,
     onSuccess: (data) => {
-      // Demo login already returns the user, so we don't call fetchUser here:
-      // hitting /me with a demo token 401s and the interceptor would wipe the
-      // freshly-saved session. Wire fetchUser back when real auth lands.
+      // LoginResource already returns { user, access_token }.
       saveAuth(data.access_token, data.user)
       navigate(RoutesApp.Home)
     }

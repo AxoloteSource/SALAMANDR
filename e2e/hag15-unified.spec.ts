@@ -1,5 +1,7 @@
 import { expect, Page, test } from '@playwright/test'
 
+import { REAL } from './support/credentials'
+
 const MESSAGES = [
   '/messages',
   '/messages/whatsapp-templates',
@@ -36,10 +38,10 @@ const PAGE_ERROR = (page: Page) => {
 
 async function demoLogin(page: Page) {
   await page.goto('/login', { waitUntil: 'domcontentloaded' })
-  await page.locator('input[name="email"]').fill('qa@example.com')
-  await page.locator('input[name="password"]').fill('qa-secret')
+  await page.locator('input[name="email"]').fill(REAL.email)
+  await page.locator('input[name="password"]').fill(REAL.password)
   await page.locator('button[type="submit"]').click()
-  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 8000 }).catch(() => undefined)
+  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 15000 }).catch(() => undefined)
 }
 
 async function probe(page: Page, route: string) {

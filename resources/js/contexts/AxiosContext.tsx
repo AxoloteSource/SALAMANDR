@@ -1,3 +1,4 @@
+import { ApisEnum } from '@/configs/apisEnum'
 import { axiosApi } from '@/configs/axiosConfig'
 import { useLogoutSync } from '@/hooks/useLogoutSync'
 import { IUser } from '@/interfaces/models/User/user.interface'
@@ -32,6 +33,8 @@ export const AxiosProvider = ({ children }: IAuthProviderProps) => {
   }
 
   const logout = useCallback(() => {
+    // Best-effort server logout (invalidate the Passport token), then clear locally.
+    void axiosApi.post('/api/v1/logout', {}, { baseURL: String(ApisEnum.BaseLogin) }).catch(() => undefined)
     configureAxiosHeaders(null)
     configUser(null)
     window.location.replace('/login')
@@ -53,8 +56,10 @@ export const AxiosProvider = ({ children }: IAuthProviderProps) => {
   const fetchUser = useCallback(async () => {
     if (!authToken) return
     try {
-      const response = await axiosApi.get('/api/v1/me')
-      const userData = response.data?.data ?? response.data
+      const response = await axiosApi.post('/api/v1/me', {}, { baseURL: String(ApisEnum.BaseLogin) })
+      // Envelope {status,message,data:{user}} is unwrapped by the interceptor to {user}.
+      const payload = response.data as { user?: IUser } | IUser
+      const userData = (payload as { user?: IUser })?.user ?? payload
       if (userData) {
         configUser(userData as IUser)
       }

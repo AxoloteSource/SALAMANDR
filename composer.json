@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "axolote-source/authxolote-sdk": "dev-main",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0"
     },

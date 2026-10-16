@@ -45,7 +45,10 @@ axiosApi.interceptors.response.use(
     return response
   },
   (error) => {
-    if (error.response?.status === 401 && REAL_AUTH && typeof window !== 'undefined') {
+    // A menu 401 (e.g. missing permission grant) must not log the user out.
+    const isMenuRequest = String(error.config?.url ?? '').includes('/menus')
+
+    if (error.response?.status === 401 && REAL_AUTH && !isMenuRequest && typeof window !== 'undefined') {
       window.localStorage.removeItem(authTokenKey)
       window.localStorage.removeItem(userKey)
       // Guard against a redirect loop when a 401 happens while already on /login.

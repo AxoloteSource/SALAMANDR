@@ -37,7 +37,15 @@ const shellEn = {
   active_rewards: 'Active rewards',
   points_redeemed: 'Points redeemed',
   not_found: 'Page not found',
-  go_home: 'Go home'
+  go_home: 'Go home',
+  'salamandr-home': 'Home',
+  'salamandr-auth': 'Authxolote',
+  'salamandr-messages': 'Messages',
+  'salamandr-messages-whatsapp': 'WhatsApp',
+  'salamandr-messages-email': 'Email',
+  'salamandr-messages-push-notifications': 'Push notifications',
+  ui: 'UI',
+  menu: { catalogs: 'Catalogs', menus: 'Menus' }
 }
 
 const shellEs: typeof shellEn = {
@@ -65,7 +73,15 @@ const shellEs: typeof shellEn = {
   active_rewards: 'Recompensas activas',
   points_redeemed: 'Puntos canjeados',
   not_found: 'Página no encontrada',
-  go_home: 'Ir al inicio'
+  go_home: 'Ir al inicio',
+  'salamandr-home': 'Inicio',
+  'salamandr-auth': 'Authxolote',
+  'salamandr-messages': 'Mensajes',
+  'salamandr-messages-whatsapp': 'WhatsApp',
+  'salamandr-messages-email': 'Correo',
+  'salamandr-messages-push-notifications': 'Notificaciones push',
+  ui: 'UI',
+  menu: { catalogs: 'Catálogos', menus: 'Menús' }
 }
 
 const resources = {
