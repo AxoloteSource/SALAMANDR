@@ -1,5 +1,12 @@
 # SALAMANDR
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/imgs/logo-white.png">
+    <img src="public/imgs/axolote-salamandr.svg" alt="Salamandr" width="360">
+  </picture>
+</p>
+
 **Host frontend unificado para los servicios de AxoloteSource** — una única SPA
 de Laravel + React (sin Inertia) que aloja los frontends de tres servicios tras
 un solo shell: una sesión/auth, un tema y un menú lateral.

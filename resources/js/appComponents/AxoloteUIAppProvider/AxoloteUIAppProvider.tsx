@@ -20,9 +20,13 @@ interface AxoloteUIAppProviderProps {
   children: PropsWithChildren['children']
   /** Live per-app menu from the Authxolote pipeline; falls back to the static menu. */
   menu?: IMenuShow
+  /** Logo shown on light backgrounds. */
+  logo?: string
+  /** Logo shown on dark backgrounds. */
+  logoDark?: string
 }
 
-const AxoloteUIAppProvider = ({ children, menu }: AxoloteUIAppProviderProps) => {
+const AxoloteUIAppProvider = ({ children, menu, logo, logoDark }: AxoloteUIAppProviderProps) => {
   const themeConfig = useSelector((state: IRootState) => state.themeConfig)
   const dispatch = useDispatch()
   const { user, logout } = useAxios()
@@ -60,6 +64,8 @@ const AxoloteUIAppProvider = ({ children, menu }: AxoloteUIAppProviderProps) => 
       setTheme,
       user: user ? { name: user.name, email: user.email, role: user.role } : null,
       logout,
+      logo,
+      logoDark,
       brandName: 'Salamandr',
       menu: menu ?? appMenu,
       footerLinks: [
@@ -67,7 +73,7 @@ const AxoloteUIAppProvider = ({ children, menu }: AxoloteUIAppProviderProps) => 
         { label: 'Términos y condiciones', to: '/' }
       ]
     }),
-    [themeConfig, setThemeConfig, setTheme, user, logout, dispatch, menu]
+    [themeConfig, setThemeConfig, setTheme, user, logout, logo, logoDark, dispatch, menu]
   )
 
   return <AxoloteUIProvider value={value}>{children}</AxoloteUIProvider>

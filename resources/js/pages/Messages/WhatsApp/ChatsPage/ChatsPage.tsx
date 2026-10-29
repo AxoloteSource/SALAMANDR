@@ -25,6 +25,8 @@ const ChatsPage = () => {
     messagesLoading,
     messagesError,
     refetchMessages,
+    handleSendMessage,
+    activeChatKey,
     currentUser,
     setSelectedChat,
     setSearchIndex,
@@ -87,7 +89,7 @@ const ChatsPage = () => {
             emptyBlock(t('no_messages', 'Sin mensajes'))
           ) : (
             <ActiveChat
-              readOnly
+              key={activeChatKey}
               handleOpenMenu={() => setShowMenu(!showMenu)}
               messages={messages}
               scrollMessageListProps={scrollMessageListProps}
@@ -95,7 +97,7 @@ const ChatsPage = () => {
               subtitleUserCard={selectedChatData.subtitle ?? ''}
               receiverId={selectedChatData.userId ?? ''}
               selectedChat={selectedChat}
-              sendMessage={() => Promise.resolve(null)}
+              sendMessage={handleSendMessage}
             />
           )}
         </div>

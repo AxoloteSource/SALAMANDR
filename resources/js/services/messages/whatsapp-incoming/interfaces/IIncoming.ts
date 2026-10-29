@@ -21,5 +21,7 @@ export interface IIncomingMessage {
   text: string | null
   media: Record<string, unknown> | null
   wa_timestamp: number | null
+  /** Additive (HAG-38): both directions are returned; outbound = sent by us. */
+  direction?: 'inbound' | 'outbound'
   created_at: string
 }

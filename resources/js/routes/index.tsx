@@ -18,7 +18,7 @@ const AppShell = () => {
   const { menu } = useAppMenu(isAuth)
 
   return (
-    <AxoloteUIAppProvider menu={menu}>
+    <AxoloteUIAppProvider menu={menu} logo="/imgs/axolote-salamandr.svg" logoDark="/imgs/logo-white.png">
       <Outlet />
     </AxoloteUIAppProvider>
   )
