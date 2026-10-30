@@ -1,3 +1,5 @@
+import { Color } from '@/enums/Color'
+import { IMenu } from '@/interfaces/models/Menu/IMenu'
 import Button from '@axolotesource/ui/components/Buttons/Button'
 import { ButtonTypeEnum } from '@axolotesource/ui/components/Buttons/enums/buttonType.enum'
 import { Input } from '@axolotesource/ui/components/Form/Input'
@@ -5,8 +7,6 @@ import { InputTypeEnum } from '@axolotesource/ui/components/Form/Input/InputType
 import InputSelect from '@axolotesource/ui/components/Form/Select/Select'
 import Switch from '@axolotesource/ui/components/Form/Switch'
 import Modal from '@axolotesource/ui/components/Modal/Modal'
-import { Color } from '@/enums/Color'
-import { IMenu } from '@/interfaces/models/Menu/IMenu'
 import { Form, Formik } from 'formik'
 import { IInitialValuesMenu, useMenuForm } from './useMenuForm'
 
@@ -18,7 +18,7 @@ interface IMenuFormProps {
 }
 
 export const MenuForm = ({ close, selectedMenu, isOpen, onSuccess }: IMenuFormProps) => {
-  const { formikProps, t, applicationOptions, applicationsLoading } = useMenuForm({ selectedMenu, onSuccess })
+  const { formikProps, t, applicationOptions, applicationsLoading, sizeOptions } = useMenuForm({ selectedMenu, onSuccess })
   return (
     <Modal
       className="w-full max-w-lg"
@@ -41,6 +41,14 @@ export const MenuForm = ({ close, selectedMenu, isOpen, onSuccess }: IMenuFormPr
             <Input<IInitialValuesMenu> className="col-span-12" name="name" type={InputTypeEnum.Text} label={`${t('name')}`} formik={formik} />
             <Input<IInitialValuesMenu> className="col-span-12" name="slug" type={InputTypeEnum.Text} label={`${t('slug')}`} formik={formik} />
             <Input<IInitialValuesMenu> className="col-span-12" name="icon" type={InputTypeEnum.Text} label={`${t('icon')}`} formik={formik} />
+            <InputSelect<IInitialValuesMenu>
+              className="col-span-12"
+              name="size"
+              label={`${t('size')}`}
+              formik={formik}
+              options={sizeOptions}
+              isLoading={false}
+            />
             <Input<IInitialValuesMenu>
               className="col-span-12"
               name="sort_order"

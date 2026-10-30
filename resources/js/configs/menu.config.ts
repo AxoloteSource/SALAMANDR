@@ -15,6 +15,7 @@ export const appMenu: IMenuShow = {
   name: 'Main',
   slug: 'main',
   icon: null,
+  size: 'md',
   sort_order: 1,
   active: true,
   items_count: 2,

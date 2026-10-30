@@ -77,6 +77,7 @@ return [
     */
     'menu' => [
         'name' => 'salamandr',
+        'size' => 'sm',
         'application' => [
             'name' => 'Salamandr',
             'slug' => 'salamandr',
