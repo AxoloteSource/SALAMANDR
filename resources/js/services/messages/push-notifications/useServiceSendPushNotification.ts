@@ -4,5 +4,5 @@ import { usePOST } from '@/hooks/useApi'
 const url = '/api/v1/messages/push-notifications/send'
 
 export const useServiceSendPushNotification = () => {
-  return usePOST({ customHost: ApisEnum.BaseMessages,  url })
+  return usePOST({ customHost: ApisEnum.BaseMessages, url })
 }

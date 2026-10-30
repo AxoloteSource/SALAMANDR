@@ -87,19 +87,15 @@ test.describe('HAG-5 shell', () => {
     dump('/login validation', c)
   })
 
-  test('dashboard renders inside the app shell with a populated, navigable menu', async ({ page }) => {
+  test('dashboard renders inside the app shell without a static menu fallback', async ({ page }) => {
     await goto(page, '/dashboard')
 
     const sidebar = page.getByRole('navigation').first()
     await expect(sidebar.getByText('Menú')).toBeVisible()
 
-    const home = sidebar.getByRole('link', { name: 'Inicio' })
-    const dash = sidebar.getByRole('link', { name: 'Tablero' })
-    await expect(home, 'Home (Inicio) menu link').toBeVisible()
-    await expect(dash, 'Dashboard (Tablero) menu link').toBeVisible()
-
-    await home.click()
-    await expect(page, 'menu navigation works').toHaveURL(/\/$/)
+    // Unauthenticated: no menu request is made, so the sidebar must stay empty.
+    // The live menu (and its navigation) is covered by HAG-18.
+    await expect(sidebar.locator('ul a'), 'no hardcoded menu items before Authxolote responds').toHaveCount(0)
     dump('/dashboard menu', c)
   })
 

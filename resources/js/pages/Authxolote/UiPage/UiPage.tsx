@@ -1,8 +1,8 @@
+import { RoutesAuthxolote } from '@/routes/modules/authxolote.routes'
 import Card from '@axolotesource/ui/components/Card/Card'
 import { Page } from '@axolotesource/ui/components/Page/Page'
 import Typography from '@axolotesource/ui/components/Typography'
 import { TypographyVariantEnum } from '@axolotesource/ui/components/Typography/enums/typographyVariant.enum'
-import { RoutesAuthxolote } from '@/routes/modules/authxolote.routes'
 import { CreditCard } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 

@@ -1,6 +1,6 @@
 import { useMenu } from '@/appComponents/Messages/Menu/useMenu'
-import { SidebarLink } from '@axolotesource/ui/components/Layouts/SidelbarLink/SidebarLink'
 import { RoutesMessages } from '@/routes/modules/messages.routes'
+import { SidebarLink } from '@axolotesource/ui/components/Layouts/SidelbarLink/SidebarLink'
 import { Bell, Code2, House, Mail, Megaphone, MessageSquare } from 'lucide-react'
 
 const iconsClassName = 'group-hover:!text-primary shrink-0 ltr:mr-2'

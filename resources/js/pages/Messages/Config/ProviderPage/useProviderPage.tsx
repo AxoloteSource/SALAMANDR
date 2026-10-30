@@ -1,10 +1,10 @@
+import { IProvider } from '@/services/messages/providers/interfaces/IProvider'
+import { useServiceDeleteProvider } from '@/services/messages/providers/useServiceProvider'
 import Button from '@axolotesource/ui/components/Buttons'
 import { ButtonVariantEnum } from '@axolotesource/ui/components/Buttons/enums/buttonVariant.enum'
 import { Badge } from '@axolotesource/ui/components/ui/badge'
 import { SizeEnum } from '@axolotesource/ui/enums/SizeEnum'
 import { useModal } from '@axolotesource/ui/hooks/useModal'
-import { IProvider } from '@/services/messages/providers/interfaces/IProvider'
-import { useServiceDeleteProvider } from '@/services/messages/providers/useServiceProvider'
 import { Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -87,9 +87,7 @@ export const useProviderPage = () => {
 
   const renderersMap = {
     active: (record: IProvider) => (
-      <Badge className={record.active ? 'bg-success text-white' : 'bg-gray-400 text-white'}>
-        {record.active ? t('active') : t('inactive')}
-      </Badge>
+      <Badge className={record.active ? 'bg-success text-white' : 'bg-gray-400 text-white'}>{record.active ? t('active') : t('inactive')}</Badge>
     ),
     channels: (record: IProvider) =>
       record.channels?.length ? (
@@ -105,9 +103,7 @@ export const useProviderPage = () => {
       ),
     driver_name: (record: IProvider) => record.driver_name ?? '-',
     default: (record: IProvider) => (
-      <Badge className={record.default ? 'bg-success text-white' : 'bg-gray-400 text-white'}>
-        {record.default ? t('yes') : t('no')}
-      </Badge>
+      <Badge className={record.default ? 'bg-success text-white' : 'bg-gray-400 text-white'}>{record.default ? t('yes') : t('no')}</Badge>
     ),
     actions: (record: IProvider) => (
       <div className="flex gap-2">

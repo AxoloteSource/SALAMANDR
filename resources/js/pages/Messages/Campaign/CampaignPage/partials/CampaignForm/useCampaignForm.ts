@@ -1,7 +1,7 @@
-import { ChannelEnum } from '@/services/messages/enums/ChannelEnum'
 import { useOnSubmit } from '@/hooks/useOnSubmit'
 import { useServiceStoreCampaign, useServiceUpdateCampaign } from '@/services/messages/campaigns/useServiceCampaign'
 import { useServiceIndexChannels } from '@/services/messages/channels/useServiceChannel'
+import { ChannelEnum } from '@/services/messages/enums/ChannelEnum'
 import { useServiceIndexWhatsAppTemplates } from '@/services/messages/whatsapp-template/useServiceWhatsAppTemplate'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'

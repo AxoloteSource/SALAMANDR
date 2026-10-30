@@ -6,7 +6,7 @@ import { useServiceShowMenu } from './useServiceMenus'
  *
  * Reads the per-app slug from `import.meta.env.VITE_MENU_SLUG` (Authxolote uses
  * `auth`) and fetches `GET {VITE_AUTH_URL}/api/v1/menus/{slug}` (IMenuShow) via
- * `useServiceShowMenu`, so it can feed `AxoloteUIProvider.menu` (menu.config.ts).
+ * `useServiceShowMenu`, so it can feed `AxoloteUIProvider.menu`.
  */
 export const useMenuV2 = () => {
   const { t } = useTranslation()

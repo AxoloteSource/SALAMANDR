@@ -9,8 +9,8 @@ import { useServiceShowMenu } from '@/services/authxolote/menus/useServiceMenus'
  * menus endpoint is auth-gated. So:
  *   - one slug: VITE_MENU_SLUG (default 'salamandr'); no per-section resolver.
  *   - fetch only when authenticated AND VITE_ENABLE_LIVE_MENUS=true.
- * `AxoloteUIAppProvider` falls back to the static `configs/menu.config` when no
- * menu data is available.
+ * There is no static fallback: until Authxolote responds, the sidebar renders
+ * no items instead of a hardcoded menu.
  */
 const MENU_SLUG = import.meta.env.VITE_MENU_SLUG || 'salamandr'
 const LIVE_MENUS_ENABLED = import.meta.env.VITE_ENABLE_LIVE_MENUS === 'true'

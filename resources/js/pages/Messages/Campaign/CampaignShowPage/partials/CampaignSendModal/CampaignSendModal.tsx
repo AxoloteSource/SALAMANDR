@@ -1,7 +1,7 @@
 import { TemplatePreviewForm } from '@/appComponents/Messages/WhatsApp/TemplatePreviewForm/TemplatePreviewForm'
 import { WhatsAppTemplatePreview } from '@/appComponents/Messages/WhatsApp/WhatsAppTemplatePreview/WhatsAppTemplatePreview'
-import Modal from '@axolotesource/ui/components/Modal/Modal'
 import { IWhatsAppTemplate } from '@/services/messages/interfaces/IWhatsAppTemplate'
+import Modal from '@axolotesource/ui/components/Modal/Modal'
 import { useTranslation } from 'react-i18next'
 import { useCampaignSendModal } from './useCampaignSendModal'
 

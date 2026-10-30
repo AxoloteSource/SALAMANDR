@@ -1,10 +1,10 @@
 import { ApisEnum } from '@/configs/apisEnum'
 import { axiosDELETE, useGET, usePOST, usePUT } from '@/hooks/useApi'
 import { useAxios } from '@/hooks/useAxios'
-import { useMutation } from '@tanstack/react-query'
 import { IPaginate } from '@/interfaces/IPaginate'
 import { IPaginateServiceProps } from '@/interfaces/IPaginateServiceProps'
 import { IUserList } from '@/interfaces/models/UserList/IUserList'
+import { useMutation } from '@tanstack/react-query'
 
 const url = '/api/v1/user-lists'
 const urlLogin = ApisEnum.BaseLogin

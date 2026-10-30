@@ -1,6 +1,6 @@
+import { useServiceIndexEmails } from '@/services/messages/email/useServiceEmail'
 import { Page } from '@axolotesource/ui/components/Page/Page'
 import { DataTableFilter } from '@axolotesource/ui/components/Tables/DataTableFilter/DataTableFilter'
-import { useServiceIndexEmails } from '@/services/messages/email/useServiceEmail'
 import { useEmailPage } from './useEmailPage'
 
 const EmailPage = () => {

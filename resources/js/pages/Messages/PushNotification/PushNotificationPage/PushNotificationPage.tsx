@@ -1,6 +1,6 @@
+import { useServiceIndexPushNotifications } from '@/services/messages/push-notifications/useServicePushNotification'
 import { Page } from '@axolotesource/ui/components/Page/Page'
 import { DataTableFilter } from '@axolotesource/ui/components/Tables/DataTableFilter/DataTableFilter'
-import { useServiceIndexPushNotifications } from '@/services/messages/push-notifications/useServicePushNotification'
 import { useTranslation } from 'react-i18next'
 import { PushNotificationForm } from './partials/PushNotificationForm/PushNotificationForm'
 import { SendPushNotificationModal } from './partials/SendPushNotification/SendPushNotificationModal'

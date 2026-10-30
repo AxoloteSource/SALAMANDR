@@ -136,16 +136,6 @@ return [
                             ],
                         ],
                     ],
-                    'salamandr-auth-ui' => [
-                        'icon' => 'Palette',
-                        'name' => 'UI Components',
-                        'menu_items' => [
-                            'salamandr-auth-ui-pricing-card' => [
-                                'path' => '/auth/ui/pricing-card',
-                                'name' => 'Pricing Card',
-                            ],
-                        ],
-                    ],
                 ],
             ],
             'salamandr-messages' => [
@@ -153,6 +143,22 @@ return [
                 'icon' => 'MessageSquare',
                 'roles' => ['root', 'admin'],
                 'menu_items' => [
+                    'salamandr-messages-config' => [
+                        'icon' => 'Settings',
+                        'name' => 'config',
+                        'menu_items' => [
+                            'salamandr-messages-config-drivers' => [
+                                'path' => '/messages/config/drivers',
+                                'icon' => 'Cpu',
+                                'name' => 'drivers',
+                            ],
+                            'salamandr-messages-config-providers' => [
+                                'path' => '/messages/config/providers',
+                                'icon' => 'Server',
+                                'name' => 'providers',
+                            ],
+                        ],
+                    ],
                     'salamandr-messages-whatsapp' => [
                         'icon' => 'ScrollText',
                         'menu_items' => [

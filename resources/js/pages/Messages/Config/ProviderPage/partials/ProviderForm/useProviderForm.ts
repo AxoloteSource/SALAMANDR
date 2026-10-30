@@ -1,8 +1,8 @@
 import { useOnSubmit } from '@/hooks/useOnSubmit'
 import { useServiceIndexChannels } from '@/services/messages/channels/useServiceChannel'
+import { useServiceIndexDrivers } from '@/services/messages/drivers/useServiceDriver'
 import { IProviderConfig } from '@/services/messages/providers/interfaces/IProvider'
 import { useServiceStoreProvider, useServiceUpdateProvider } from '@/services/messages/providers/useServiceProvider'
-import { useServiceIndexDrivers } from '@/services/messages/drivers/useServiceDriver'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 
