@@ -91,7 +91,7 @@ Las `VITE_*` las lee el frontend; las `AUTHXOLOTE_*` las lee Laravel.
 | `VITE_MESSAGES_URL` | Base de la API de LaraAxMessages | `https://laraaxmessages.test` |
 | `VITE_AUTH_URL` | Base de la API de Authxolote (login + fuente del menú) | `https://authxolote.test` |
 | `VITE_MENU_SLUG` | Slug del menú unificado | `salamandr` |
-| `VITE_ENABLE_LIVE_MENUS` | `true` = obtiene el menú en vivo; `false` = `configs/menu.config` estático | `true` |
+| `VITE_ENABLE_LIVE_MENUS` | `true` = obtiene el menú en vivo desde Authxolote; `false` = sin menú | `true` |
 | `VITE_REAL_AUTH` | `true` = login real + auto-logout en 401; `false` = demo | `true` |
 | `AUTHXOLOTE_URL` | Base de Authxolote para el SDK/artisan | `https://authxolote.test` |
 | `AUTHXOLOTE_TOKEN` | Token de autor para `authxolote:menu` | *(secreto — vacío en `.env.example`)* |
@@ -160,7 +160,8 @@ auth + grupo messages). Luego la SPA carga
   `services/auth/useServiceAuth` (login real). `configs/axiosConfig` agrega el
   bearer y maneja el 401 (los 401 del menú nunca te desloguean).
 - **Menú:** `hooks/useAppMenu` obtiene el menú unificado cuando hay sesión y
-  alimenta la barra lateral; fallback estático en `configs/menu.config.ts`.
+  alimenta la barra lateral. No hay fallback estático: la barra queda vacía
+  hasta que responde Authxolote.
 - **Secciones:** páginas bajo `pages/Authxolote/**` y `pages/Messages/**`, cada
   una con sus propios `services/*` que comparten el patrón de API `customHost`
   (`ApisEnum.BaseUrl | BaseMessages | BaseLogin`).

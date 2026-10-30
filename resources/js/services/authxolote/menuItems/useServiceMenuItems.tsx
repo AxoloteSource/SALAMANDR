@@ -14,6 +14,17 @@ interface IIndexMenuItemsProps extends IPaginateServiceProps {
   menu_id?: string
 }
 
+export interface IReorderMenuItemPayload {
+  id: string
+  parent_id: string | null
+  sort_order: number
+}
+
+export interface IReorderMenuItemsPayload {
+  menu_id: string
+  items: IReorderMenuItemPayload[]
+}
+
 export const useServiceIndexMenuItems = ({ filters = [], search = null, page = 1, limit = 10, menu_id }: IIndexMenuItemsProps) => {
   const appliedFilters: IFilterProps[] = menu_id ? [...(filters ?? []), { property: 'menu_id', value: menu_id }] : (filters ?? [])
 
@@ -46,6 +57,14 @@ export const useServiceToggleMenuItemRole = () => {
   return useMutation({
     mutationFn: ({ id, roleId, active }: { id: string; roleId: string; active: boolean }) =>
       axiosPUT(axiosApi, { url: `${url}/${id}/roles/${roleId}`, data: { active }, customHost: urlLogin })
+  })
+}
+
+export const useServiceReorderMenuItems = () => {
+  const { axiosApi } = useAxios()
+
+  return useMutation({
+    mutationFn: (data: IReorderMenuItemsPayload) => axiosPUT(axiosApi, { url: `${url}/reorder`, data, customHost: urlLogin })
   })
 }
 

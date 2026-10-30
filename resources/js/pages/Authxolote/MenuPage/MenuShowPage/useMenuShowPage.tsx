@@ -1,14 +1,23 @@
-import { alertSwal } from '@axolotesource/ui/components/AlertSwal/AlertSwal'
-import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
 import { AlertTypeEnum } from '@/enums/types/AlertTypeEnum'
+import { IMenuShow } from '@/interfaces/models/Menu/IMenuShow'
 import { IMenuItem } from '@/interfaces/models/MenuItem/IMenuItem'
-import { useServiceDeleteMenuItem, useServiceToggleMenuItemRole } from '@/services/authxolote/menuItems/useServiceMenuItems'
+import {
+  IReorderMenuItemPayload,
+  useServiceDeleteMenuItem,
+  useServiceReorderMenuItems,
+  useServiceToggleMenuItemRole
+} from '@/services/authxolote/menuItems/useServiceMenuItems'
 import { useServiceShowAllMenu } from '@/services/authxolote/menus/useServiceMenus'
 import { useServiceIndexRoles } from '@/services/authxolote/roles/useServiceRoles'
+import { alertSwal } from '@axolotesource/ui/components/AlertSwal/AlertSwal'
+import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import { SingleValue, MultiValue } from 'react-select'
+import { MultiValue, SingleValue } from 'react-select'
+
+const flattenForReorder = (items: IMenuItem[], parentId: string | null = null): IReorderMenuItemPayload[] =>
+  items.flatMap((item, index) => [{ id: item.id, parent_id: parentId, sort_order: index }, ...flattenForReorder(item.children ?? [], item.id)])
 
 export const useMenuShowPage = () => {
   const { t } = useTranslation()
@@ -18,16 +27,20 @@ export const useMenuShowPage = () => {
   const [roleId, setRoleId] = useState<string | null>(null)
   const [selectedMenuItem, setSelectedMenuItem] = useState<IMenuItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [orderedState, setOrderedState] = useState<{ menu: IMenuShow | undefined; items: IMenuItem[] }>({
+    menu: undefined,
+    items: []
+  })
 
   const { data: menu, isLoading, refetch: refetchMenu } = useServiceShowAllMenu(slug ?? '', enabled, roleId)
   const { data: rolesData, isLoading: rolesLoading } = useServiceIndexRoles({ page: 1, limit: 100 })
   const { mutateAsync: deleteMenuItem } = useServiceDeleteMenuItem()
   const { mutateAsync: toggleMenuItemRole } = useServiceToggleMenuItemRole()
+  const { mutateAsync: reorderMenuItems, isPending: isReordering } = useServiceReorderMenuItems()
 
-  const roleOptions = useMemo<IOptions[]>(
-    () => (rolesData?.data ?? []).map((role) => ({ value: role.id, label: role.name })),
-    [rolesData]
-  )
+  const orderedItems = orderedState.menu === menu ? orderedState.items : (menu?.items ?? [])
+
+  const roleOptions = useMemo<IOptions[]>(() => (rolesData?.data ?? []).map((role) => ({ value: role.id, label: role.name })), [rolesData])
 
   const handleEdit = (item: IMenuItem) => {
     setSelectedMenuItem(item)
@@ -39,6 +52,29 @@ export const useMenuShowPage = () => {
     }
 
     toggleMenuItemRole({ id: item.id, roleId, active: !item.has_role }).then(() => refetchMenu())
+  }
+
+  const handleReorder = async (nextItems: IMenuItem[]) => {
+    if (!menu || isReordering) {
+      return
+    }
+
+    const previousItems = orderedItems
+    setOrderedState({ menu, items: nextItems })
+
+    try {
+      await reorderMenuItems({
+        menu_id: menu.id,
+        items: flattenForReorder(nextItems)
+      })
+      await refetchMenu()
+    } catch {
+      setOrderedState({ menu, items: previousItems })
+      alertSwal({
+        type: AlertTypeEnum.ErrorNotification,
+        title: t('menu_reorder_error')
+      })
+    }
   }
 
   const handleDelete = async (id: string) => {
@@ -77,6 +113,7 @@ export const useMenuShowPage = () => {
     menu,
     isLoading,
     slug,
+    orderedItems,
     roleOptions,
     rolesLoading,
     roleId,
@@ -86,6 +123,7 @@ export const useMenuShowPage = () => {
     setSelectedMenuItem,
     handleEdit,
     handleToggleRole,
+    handleReorder,
     handleDelete,
     handleCancel,
     handleSuccess,

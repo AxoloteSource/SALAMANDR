@@ -67,7 +67,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option defines the unified SALAMANDR menu to be synced with the
-    | Authxolote API. Use `php artisan authxolote:menu` to sync it.
+    | Authxolote API. Use `php artisan authxolote:menu` to sync it. Add
+    | `--force` to delete it and recreate it from this file (loses roles
+    | and manual changes).
     |
     | Menu item slugs are the array keys, and Authxolote enforces GLOBAL
     | uniqueness across every menu, so each key is namespaced with the
@@ -200,11 +202,6 @@ return [
                         'path' => '/messages/campaigns',
                         'icon' => 'Megaphone',
                         'name' => 'campaigns',
-                    ],
-                    'salamandr-messages-ui' => [
-                        'path' => '/messages/ui',
-                        'icon' => 'Code2',
-                        'name' => 'ui',
                     ],
                     'salamandr-messages-config' => [
                         'icon' => 'Settings',
