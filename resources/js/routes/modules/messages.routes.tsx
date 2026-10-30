@@ -12,6 +12,8 @@ const CampaignPage = lazy(() => import('@/pages/Messages/Campaign/CampaignPage/C
 const CampaignShowPage = lazy(() => import('@/pages/Messages/Campaign/CampaignShowPage/CampaignShowPage'))
 const UIPage = lazy(() => import('@/pages/Messages/UIPage/UIPage'))
 const WebhookPage = lazy(() => import('@/pages/Messages/WhatsApp/WebhookPage/WebhookPage'))
+const DriverPage = lazy(() => import('@/pages/Messages/Config/DriverPage/DriverPage'))
+const ProviderPage = lazy(() => import('@/pages/Messages/Config/ProviderPage/ProviderPage'))
 
 export enum RoutesMessages {
   Home = '/messages',
@@ -24,6 +26,8 @@ export enum RoutesMessages {
   PushNotifications = '/messages/push-notifications',
   Campaigns = '/messages/campaigns',
   CampaignShow = '/messages/campaigns/:id',
+  ConfigDrivers = '/messages/config/drivers',
+  ConfigProviders = '/messages/config/providers',
   UI = '/messages/ui'
 }
 
@@ -76,6 +80,16 @@ export const messagesRoutes: IRoute[] = [
   {
     path: RoutesMessages.CampaignShow,
     element: <CampaignShowPage />,
+    private: true
+  },
+  {
+    path: RoutesMessages.ConfigDrivers,
+    element: <DriverPage />,
+    private: true
+  },
+  {
+    path: RoutesMessages.ConfigProviders,
+    element: <ProviderPage />,
     private: true
   },
   {

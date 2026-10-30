@@ -1,15 +1,15 @@
 import { UseMutateAsyncFunction } from '@tanstack/react-query'
 import { sileo } from 'sileo'
 
-export const useOnSubmit = <Request = Record<string, unknown>, Response = Record<string, unknown>>({
+export const useOnSubmit = <Request = Record<string, unknown>, Response = Record<string, unknown>, Payload = Request>({
   mutateAsync,
   onSuccess,
-  formatData = (data: Request) => data,
+  formatData = (data: Request) => data as unknown as Payload,
   onError
 }: {
   mutateAsync: UseMutateAsyncFunction<{ data: unknown }, Error, unknown, unknown>
   onSuccess: (data: Response) => void
-  formatData?: (data: Request) => Request
+  formatData?: (data: Request) => Payload
   onError?: (data: Error) => void
 }) => {
   const onSubmit = async (data: Request, { setErrors }: { setErrors: (errors: Record<string, unknown>) => void }) => {

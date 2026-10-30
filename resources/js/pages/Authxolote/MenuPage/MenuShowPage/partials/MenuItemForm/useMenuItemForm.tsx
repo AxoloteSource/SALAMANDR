@@ -1,7 +1,8 @@
-import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
 import { useOnSubmit } from '@/hooks/useOnSubmit'
 import { IMenuItem, MenuItemType } from '@/interfaces/models/MenuItem/IMenuItem'
 import { useMenuItemsTree, useServiceStoreMenuItem, useServiceUpdateMenuItem } from '@/services/authxolote/menuItems/useServiceMenuItems'
+import { normalizeIconName } from '@/utils/iconName'
+import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
@@ -94,7 +95,7 @@ export const useMenuItemForm = ({ selectedMenuItem, onSuccess, menuId }: IUseMen
     slug: selectedMenuItem?.slug ?? '',
     route: selectedMenuItem?.route ?? '',
     path: selectedMenuItem?.path ?? '',
-    icon: selectedMenuItem?.icon ?? '',
+    icon: normalizeIconName(selectedMenuItem?.icon),
     sort_order: selectedMenuItem?.sort_order ?? 0,
     active: selectedMenuItem?.active ?? true
   }
