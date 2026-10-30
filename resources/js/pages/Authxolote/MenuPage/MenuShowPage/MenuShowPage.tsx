@@ -124,12 +124,12 @@ const MenuShowPage = () => {
                   {t(selectedMenuItem.name)}
                 </span>
               </CardTitle>
-              <MenuItemFormFields selectedMenuItem={selectedMenuItem} onSuccess={handleSuccess} onCancel={handleCancel} />
+              <MenuItemFormFields key={selectedMenuItem.id} selectedMenuItem={selectedMenuItem} onSuccess={handleSuccess} onCancel={handleCancel} />
             </div>
           ) : isModalOpen ? (
             <div>
               <CardTitle>{t('new_menu_item')}</CardTitle>
-              <MenuItemFormFields onSuccess={handleSuccess} onCancel={closeModal} menuId={menu?.id} />
+              <MenuItemFormFields key="new" onSuccess={handleSuccess} onCancel={closeModal} menuId={menu?.id} />
             </div>
           ) : null}
         </Card>

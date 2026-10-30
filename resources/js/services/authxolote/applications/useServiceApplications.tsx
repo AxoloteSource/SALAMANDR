@@ -28,6 +28,6 @@ export const useServiceDeleteApplication = () => {
   const { axiosApi } = useAxios()
 
   return useMutation({
-    mutationFn: (id: string) => axiosDELETE(axiosApi, { url: `${url}/${id}` })
+    mutationFn: (id: string) => axiosDELETE(axiosApi, { url: `${url}/${id}`, customHost: urlLogin })
   })
 }

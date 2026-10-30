@@ -43,6 +43,7 @@ export const useMenuShowPage = () => {
   const roleOptions = useMemo<IOptions[]>(() => (rolesData?.data ?? []).map((role) => ({ value: role.id, label: role.name })), [rolesData])
 
   const handleEdit = (item: IMenuItem) => {
+    setIsModalOpen(false)
     setSelectedMenuItem(item)
   }
 
@@ -85,10 +86,17 @@ export const useMenuShowPage = () => {
     })
 
     if (result?.isConfirmed) {
-      deleteMenuItem(id).then(() => {
-        refetchMenu()
+      try {
+        await deleteMenuItem(id)
+        setSelectedMenuItem((current) => (current?.id === id ? null : current))
+        await refetchMenu()
         alertSwal({ type: AlertTypeEnum.SuccessNotification })
-      })
+      } catch {
+        alertSwal({
+          type: AlertTypeEnum.ErrorNotification,
+          title: t('menu_item_delete_error')
+        })
+      }
     }
   }
 
@@ -96,11 +104,15 @@ export const useMenuShowPage = () => {
     setSelectedMenuItem(null)
   }
 
-  const openModal = () => setIsModalOpen(true)
+  const openModal = () => {
+    setSelectedMenuItem(null)
+    setIsModalOpen(true)
+  }
   const closeModal = () => setIsModalOpen(false)
 
   const handleSuccess = () => {
     setSelectedMenuItem(null)
+    setIsModalOpen(false)
     refetchMenu()
   }
 

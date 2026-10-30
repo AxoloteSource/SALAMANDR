@@ -123,10 +123,7 @@ export const MenuItemFormFields = ({ selectedMenuItem, onSuccess, onCancel, menu
           <Input<IInitialValuesMenuItem> className="col-span-6" name="name" type={InputTypeEnum.Text} label={`${t('name')}`} formik={formik} />
           <Input<IInitialValuesMenuItem> className="col-span-6" name="slug" type={InputTypeEnum.Text} label={`${t('slug')}`} formik={formik} />
           {formik.values.type === 'link' && (
-            <>
-              <Input<IInitialValuesMenuItem> className="col-span-6" name="path" type={InputTypeEnum.Text} label={`${t('path')}`} formik={formik} />
-              <Input<IInitialValuesMenuItem> className="col-span-6" name="route" type={InputTypeEnum.Text} label={`${t('route')}`} formik={formik} />
-            </>
+            <Input<IInitialValuesMenuItem> className="col-span-12" name="path" type={InputTypeEnum.Text} label={`${t('path')}`} formik={formik} />
           )}
           {formik.values.type !== 'section' && (
             <InputSelect<IInitialValuesMenuItem>

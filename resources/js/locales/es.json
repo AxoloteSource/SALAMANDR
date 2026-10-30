@@ -380,6 +380,7 @@
   "menu": "Menú",
   "menu_title": "Menú",
   "menu_item_active": "Activo",
+  "menu_item_delete_error": "No se pudo eliminar el elemento de menú. Inténtalo de nuevo.",
   "menu_item_disabled": "Deshabilitado",
   "menu_item_missing_role": "Rol faltante",
   "menu_item_path_or_route_error": "Proporciona una ruta o path",
