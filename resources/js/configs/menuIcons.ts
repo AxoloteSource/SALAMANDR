@@ -104,6 +104,7 @@ import {
   type LucideIcon
 } from 'lucide-react'
 
+/** Iconos sugeridos en el selector del admin; el renderer soporta cualquier icono de Lucide. */
 export const MENU_ICONS: Record<string, LucideIcon> = {
   Activity,
   AlertTriangle,

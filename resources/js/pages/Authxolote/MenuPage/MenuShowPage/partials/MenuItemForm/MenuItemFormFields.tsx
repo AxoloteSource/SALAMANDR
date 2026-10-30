@@ -1,41 +1,61 @@
+import { MENU_ICONS } from '@/configs/menuIcons'
+import { Color } from '@/enums/Color'
+import { IMenuItem } from '@/interfaces/models/MenuItem/IMenuItem'
+import { formatIconLabel, normalizeIconName } from '@/utils/iconName'
 import Button from '@axolotesource/ui/components/Buttons/Button'
 import { ButtonTypeEnum } from '@axolotesource/ui/components/Buttons/enums/buttonType.enum'
 import { Input } from '@axolotesource/ui/components/Form/Input'
 import { InputTypeEnum } from '@axolotesource/ui/components/Form/Input/InputType.enum'
 import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
-import Switch from '@axolotesource/ui/components/Form/Switch/Switch'
 import InputSelect from '@axolotesource/ui/components/Form/Select/Select'
-import { Color } from '@/enums/Color'
-import { MENU_ICONS } from '@/configs/menuIcons'
-import { IMenuItem } from '@/interfaces/models/MenuItem/IMenuItem'
+import Switch from '@axolotesource/ui/components/Form/Switch/Switch'
 import { Form, Formik } from 'formik'
-import { components, OptionProps, SingleValueProps, SingleValue } from 'react-select'
+import { Circle, type LucideIcon } from 'lucide-react'
+import { DynamicIcon, iconNames, type IconName } from 'lucide-react/dynamic'
+import { components, OptionProps, SingleValue, SingleValueProps } from 'react-select'
 import { IInitialValuesMenuItem, useMenuItemForm } from './useMenuItemForm'
 
-const ICONS_TO_SHOW = 50
+/** Iconos sugeridos al abrir el selector; la búsqueda recorre todo el catálogo de Lucide. */
+const STATIC_ICONS: Record<string, LucideIcon> = Object.fromEntries(Object.entries(MENU_ICONS).map(([name, icon]) => [normalizeIconName(name), icon]))
 
-const iconOptions: IOptions[] = Object.keys(MENU_ICONS)
-  .sort()
-  .map((name) => ({ value: name, label: name }))
+const suggestedIconValues = new Set(Object.keys(STATIC_ICONS))
 
-const firstIconValues = new Set(iconOptions.slice(0, ICONS_TO_SHOW).map((option) => String(option.value)))
+const iconOptions: IOptions[] = iconNames
+  .map((name) => ({ value: name, label: formatIconLabel(name) }))
+  .sort((a, b) => String(a.label).localeCompare(String(b.label)))
 
 const filterIconOptions = (option: IOptions, inputValue: string): boolean => {
-  if (!inputValue.trim()) {
-    return firstIconValues.has(String(option.value))
+  const query = inputValue.trim().toLowerCase()
+
+  if (!query) {
+    return suggestedIconValues.has(String(option.value))
   }
 
-  return option.label.toLowerCase().includes(inputValue.toLowerCase())
+  return String(option.value).toLowerCase().includes(query) || option.label.toLowerCase().includes(query)
+}
+
+interface IIconPreviewProps {
+  name: string
+  className: string
+}
+
+const IconPreview = ({ name, className }: IIconPreviewProps) => {
+  const StaticIcon = STATIC_ICONS[name]
+
+  if (StaticIcon) {
+    return <StaticIcon className={className} />
+  }
+
+  return <DynamicIcon name={name as IconName} className={className} fallback={() => <Circle className={className} aria-hidden />} />
 }
 
 const IconOption = (props: OptionProps<IOptions, false>) => {
   const { data } = props
-  const Icon = MENU_ICONS[String(data.value)]
 
   return (
     <components.Option {...props}>
       <div className="flex items-center gap-2">
-        {Icon && <Icon className="h-4 w-4 shrink-0" />}
+        <IconPreview name={String(data.value)} className="h-4 w-4 shrink-0" />
         <span>{data.label}</span>
       </div>
     </components.Option>
@@ -44,12 +64,11 @@ const IconOption = (props: OptionProps<IOptions, false>) => {
 
 const IconSingleValue = (props: SingleValueProps<IOptions, false>) => {
   const { data } = props
-  const Icon = MENU_ICONS[String(data.value)]
 
   return (
     <components.SingleValue {...props}>
       <div className="flex items-center gap-2">
-        {Icon && <Icon className="h-4 w-4 shrink-0" />}
+        <IconPreview name={String(data.value)} className="h-4 w-4 shrink-0" />
         <span>{data.label}</span>
       </div>
     </components.SingleValue>

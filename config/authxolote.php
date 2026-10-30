@@ -203,6 +203,22 @@ return [
                         'icon' => 'Code2',
                         'name' => 'ui',
                     ],
+                    'salamandr-messages-config' => [
+                        'icon' => 'Settings',
+                        'name' => 'config',
+                        'menu_items' => [
+                            'salamandr-messages-config-drivers' => [
+                                'path' => '/messages/config/drivers',
+                                'icon' => 'Cpu',
+                                'name' => 'drivers',
+                            ],
+                            'salamandr-messages-config-providers' => [
+                                'path' => '/messages/config/providers',
+                                'icon' => 'Server',
+                                'name' => 'providers',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],

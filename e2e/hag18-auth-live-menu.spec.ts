@@ -90,6 +90,11 @@ test.describe('HAG-19 live unified menu', () => {
     expect.soft(missing, `menu is missing items: ${missing.join(', ')}`).toEqual([])
 
     expect.soft(await sidebar.locator('a[href="/"]').count() >= 1, 'home link present').toBeTruthy()
+
+    // Los iconos de la BD se resuelven contra todo Lucide, no solo contra la whitelist de la librería.
+    await expect(sidebar.locator('svg.lucide-house').first(), 'home icon rendered').toBeVisible({ timeout: 15000 })
+    await expect(sidebar.locator('svg.lucide-scroll-text').first(), 'dynamic header icon rendered').toBeVisible({ timeout: 15000 })
+    await expect(sidebar.locator('svg.lucide-circle-help'), 'no unresolved menu icons').toHaveCount(0)
   })
 
   test('active section auto-opens its menu group; plain pointer click navigates', async ({ page }) => {

@@ -13,7 +13,7 @@ importers:
     dependencies:
       '@axolotesource/ui':
         specifier: github:AxoloteSource/ui#main
-        version: https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)
+        version: https://codeload.github.com/AxoloteSource/ui/tar.gz/207e0b17fe17e5098699bef48e85753f17ff50ef(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)
       '@mantine/core':
         specifier: ^8.3.13
         version: 8.3.18(@mantine/hooks@8.3.18(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -169,8 +169,8 @@ importers:
 
 packages:
 
-  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a':
-    resolution: {gitHosted: true, integrity: sha512-Rie5bFjOqS7cs1/RppsIgmd4oB14WBztCuePbg/R2CVjnuBpBXwfiSxp7+OrcfGDPuOxJNwcbZOWOrNPV2jgGw==, tarball: https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a}
+  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/207e0b17fe17e5098699bef48e85753f17ff50ef':
+    resolution: {gitHosted: true, integrity: sha512-XE6OzbYJjh4kV/GIsQHnkR7edzBz9ViP6fHb75JJyDO2No/D6QV0G/QH9d7V8izj+1rrN90g/lMXG/2r2rEJJA==, tarball: https://codeload.github.com/AxoloteSource/ui/tar.gz/207e0b17fe17e5098699bef48e85753f17ff50ef}
     version: 0.1.0
     peerDependencies:
       '@tanstack/react-query': ^5.104.2
@@ -3077,7 +3077,7 @@ packages:
 
 snapshots:
 
-  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/800d06883b2c7f408ff3900e2a65252cc1b9db4a(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)':
+  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/207e0b17fe17e5098699bef48e85753f17ff50ef(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.104.2(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)':
     dependencies:
       '@floating-ui/react': 0.27.20(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@headlessui/react': 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
