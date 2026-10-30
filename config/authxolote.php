@@ -90,6 +90,7 @@ return [
                 'roles' => ['root', 'admin'],
             ],
             'salamandr-auth' => [
+                'type' => 'section',
                 'icon' => 'Shield',
                 'roles' => ['root', 'admin'],
                 'menu_items' => [
@@ -145,6 +146,7 @@ return [
                 ],
             ],
             'salamandr-messages' => [
+                'type' => 'section',
                 'icon' => 'MessageSquare',
                 'roles' => ['root', 'admin'],
                 'menu_items' => [

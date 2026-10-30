@@ -102,7 +102,7 @@ export const MenuItemFormFields = ({ selectedMenuItem, onSuccess, onCancel, menu
             isLoading={false}
             onChange={(newValue) => {
               const value = (newValue as SingleValue<IOptions> | null)?.value
-              if (value === 'header') {
+              if (value === 'header' || value === 'section') {
                 formik.setFieldValue('route', '')
                 formik.setFieldValue('path', '')
               }
@@ -128,20 +128,22 @@ export const MenuItemFormFields = ({ selectedMenuItem, onSuccess, onCancel, menu
               <Input<IInitialValuesMenuItem> className="col-span-6" name="route" type={InputTypeEnum.Text} label={`${t('route')}`} formik={formik} />
             </>
           )}
-          <InputSelect<IInitialValuesMenuItem>
-            className="col-span-12"
-            name="icon"
-            label={`${t('icon')}`}
-            formik={formik}
-            options={iconOptions}
-            isLoading={false}
-            isSearchable
-            isClearable
-            filterOption={filterIconOptions}
-            noOptionsMessage="Sin resultados"
-            OptionComponent={IconOption}
-            SingleValueComponent={IconSingleValue}
-          />
+          {formik.values.type !== 'section' && (
+            <InputSelect<IInitialValuesMenuItem>
+              className="col-span-12"
+              name="icon"
+              label={`${t('icon')}`}
+              formik={formik}
+              options={iconOptions}
+              isLoading={false}
+              isSearchable
+              isClearable
+              filterOption={filterIconOptions}
+              noOptionsMessage="Sin resultados"
+              OptionComponent={IconOption}
+              SingleValueComponent={IconSingleValue}
+            />
+          )}
           <Input<IInitialValuesMenuItem>
             className="col-span-12"
             name="sort_order"

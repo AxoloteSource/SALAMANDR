@@ -47,7 +47,8 @@ export const useMenuItemForm = ({ selectedMenuItem, onSuccess, menuId }: IUseMen
   const typeOptions = useMemo<IOptions[]>(
     () => [
       { value: 'link', label: t('link') },
-      { value: 'header', label: t('header') }
+      { value: 'header', label: t('header') },
+      { value: 'section', label: t('section') }
     ],
     [t]
   )
@@ -57,9 +58,9 @@ export const useMenuItemForm = ({ selectedMenuItem, onSuccess, menuId }: IUseMen
     name: Yup.string().required(t('name_required')),
     slug: Yup.string().required(t('slug_required')),
     type: Yup.mixed<MenuItemType>()
-      .oneOf(['link', 'header'])
+      .oneOf(['link', 'header', 'section'])
       .test('check-path-or-route', t('menu_item_path_or_route_error'), function (value) {
-        if (value === 'header') {
+        if (value !== 'link') {
           return true
         }
 
@@ -73,7 +74,7 @@ export const useMenuItemForm = ({ selectedMenuItem, onSuccess, menuId }: IUseMen
   const { onSubmit } = useOnSubmit<IInitialValuesMenuItem>({
     mutateAsync: selectedMenuItem?.id ? mutatorUpdate.mutateAsync : mutator.mutateAsync,
     formatData: (data) => {
-      if (data.type === 'header') {
+      if (data.type !== 'link') {
         return { ...data, route: null as unknown as string, path: null as unknown as string }
       }
 
