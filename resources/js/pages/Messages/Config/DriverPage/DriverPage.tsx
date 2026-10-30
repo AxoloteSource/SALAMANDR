@@ -1,6 +1,6 @@
+import { useServiceIndexDrivers } from '@/services/messages/drivers/useServiceDriver'
 import { Page } from '@axolotesource/ui/components/Page/Page'
 import { DataTableFilter } from '@axolotesource/ui/components/Tables/DataTableFilter/DataTableFilter'
-import { useServiceIndexDrivers } from '@/services/messages/drivers/useServiceDriver'
 import { useTranslation } from 'react-i18next'
 import { DriverForm } from './partials/DriverForm/DriverForm'
 import { useDriverPage } from './useDriverPage'

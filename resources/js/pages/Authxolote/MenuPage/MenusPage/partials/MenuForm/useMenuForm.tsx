@@ -1,8 +1,8 @@
-import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
 import { useOnSubmit } from '@/hooks/useOnSubmit'
-import { IMenu } from '@/interfaces/models/Menu/IMenu'
+import { IMenu, MenuSize } from '@/interfaces/models/Menu/IMenu'
 import { useServiceIndexApplications } from '@/services/authxolote/applications/useServiceApplications'
 import { useServiceStoreMenu, useServiceUpdateMenu } from '@/services/authxolote/menus/useServiceMenus'
+import { IOptions } from '@axolotesource/ui/components/Form/Select/interfaces/IOptions'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
@@ -14,6 +14,7 @@ export interface IInitialValuesMenu {
   name: string
   slug: string
   icon: string
+  size: MenuSize
   sort_order: number
   active: boolean
 }
@@ -22,6 +23,7 @@ const initialValues: IInitialValuesMenu = {
   name: '',
   slug: '',
   icon: '',
+  size: 'md',
   sort_order: 0,
   active: true
 }
@@ -40,10 +42,20 @@ export const useMenuForm = ({ selectedMenu, onSuccess }: IUseMenuFormProps) => {
     [applicationsData]
   )
 
+  const sizeOptions = useMemo<IOptions[]>(
+    () => [
+      { value: 'sm', label: t('small') },
+      { value: 'md', label: t('medium') },
+      { value: 'lg', label: t('large') }
+    ],
+    [t]
+  )
+
   const validationSchema = Yup.object().shape({
     application_id: Yup.string().required(t('application_required')),
     name: Yup.string().required(t('name_required')),
     slug: Yup.string().required(t('slug_required')),
+    size: Yup.mixed<MenuSize>().oneOf(['sm', 'md', 'lg']).required(),
     sort_order: Yup.number().integer().min(0)
   })
 
@@ -64,6 +76,7 @@ export const useMenuForm = ({ selectedMenu, onSuccess }: IUseMenuFormProps) => {
     name: selectedMenu?.name ?? '',
     slug: selectedMenu?.slug ?? '',
     icon: selectedMenu?.icon ?? '',
+    size: selectedMenu?.size ?? 'md',
     sort_order: selectedMenu?.sort_order ?? 0,
     active: selectedMenu?.active ?? true
   }
@@ -72,5 +85,5 @@ export const useMenuForm = ({ selectedMenu, onSuccess }: IUseMenuFormProps) => {
     initialValues: filledValues,
     onSubmit
   }
-  return { formikProps, t, applicationOptions, applicationsLoading }
+  return { formikProps, t, applicationOptions, applicationsLoading, sizeOptions }
 }

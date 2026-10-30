@@ -1,4 +1,3 @@
-import { appMenu } from '@/configs/menu.config'
 import { useAxios } from '@/hooks/useAxios'
 import { IMenuShow } from '@/interfaces/models/Menu/IMenuShow'
 import { IRootState } from '@/store'
@@ -18,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 interface AxoloteUIAppProviderProps {
   children: PropsWithChildren['children']
-  /** Live per-app menu from the Authxolote pipeline; falls back to the static menu. */
+  /** Live per-app menu from the Authxolote pipeline. Renders nothing until it loads. */
   menu?: IMenuShow
   /** Logo shown on light backgrounds. */
   logo?: string
@@ -67,7 +66,7 @@ const AxoloteUIAppProvider = ({ children, menu, logo, logoDark }: AxoloteUIAppPr
       logo,
       logoDark,
       brandName: 'Salamandr',
-      menu: menu ?? appMenu,
+      menu,
       footerLinks: [
         { label: 'Aviso de privacidad', to: '/' },
         { label: 'Términos y condiciones', to: '/' }

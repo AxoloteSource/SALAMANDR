@@ -1,3 +1,4 @@
+import { IWhatsAppTemplate } from '@/services/messages/interfaces/IWhatsAppTemplate'
 import Button from '@axolotesource/ui/components/Buttons'
 import { ButtonVariantEnum } from '@axolotesource/ui/components/Buttons/enums/buttonVariant.enum'
 import Card from '@axolotesource/ui/components/Card'
@@ -6,7 +7,6 @@ import { CodeBlock } from '@axolotesource/ui/components/CodeBlock/CodeBlock'
 import Modal from '@axolotesource/ui/components/Modal/Modal'
 import { Badge } from '@axolotesource/ui/components/ui/badge'
 import { useModal } from '@axolotesource/ui/hooks/useModal'
-import { IWhatsAppTemplate } from '@/services/messages/interfaces/IWhatsAppTemplate'
 import { Code2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 

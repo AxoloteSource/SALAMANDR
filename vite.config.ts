@@ -24,6 +24,9 @@ export default defineConfig(({ command }) => ({
     tailwindcss()
   ],
   server: {
+    // Vite bloquea el WebSocket de HMR si el Host no está permitido. Con Herd/Valet
+    // el dev server vive en https://<sitio>.test, así que aceptamos esos hosts.
+    allowedHosts: ['.test'],
     watch: {
       ignored: ['**/storage/**', 'app/**'],
       usePolling: true
@@ -98,6 +101,13 @@ export default defineConfig(({ command }) => ({
           }
 
           if (id.includes('lucide-react')) {
+            // Los iconos de `lucide-react/dynamic` se importan bajo demanda. Si se
+            // agrupan aquí, los ~4.5k iconos terminan en un chunk de ~860 kB que la
+            // entrada carga siempre. Dejarlos fuera mantiene solo los estáticos.
+            if (/[\\/]lucide-react[\\/]dist[\\/]esm[\\/]icons[\\/]/.test(id)) {
+              return
+            }
+
             return 'icons'
           }
 

@@ -64,14 +64,7 @@ export const ProviderForm = ({ isOpen, close, selectedItem, onSuccess }: Props) 
                     <Switch name="provider_config_default" label={t('make_default')} formik={formik} />
                   </div>
 
-                  <Input
-                    name="config_json"
-                    label={t('configuration')}
-                    formik={formik}
-                    as="textarea"
-                    rows={8}
-                    placeholder='{"key": "value"}'
-                  />
+                  <Input name="config_json" label={t('configuration')} formik={formik} as="textarea" rows={8} placeholder='{"key": "value"}' />
                 </div>
               </div>
             </div>

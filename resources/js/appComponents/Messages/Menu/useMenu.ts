@@ -1,5 +1,5 @@
-import ISubItem from '@axolotesource/ui/components/Layouts/SidelbarLink/subItem.interface'
 import { RoutesMessages } from '@/routes/modules/messages.routes'
+import ISubItem from '@axolotesource/ui/components/Layouts/SidelbarLink/subItem.interface'
 import { useTranslation } from 'react-i18next'
 
 export const useMenu = () => {

@@ -1,13 +1,13 @@
-import Button from '@axolotesource/ui/components/Buttons/Button'
-import { ButtonVariantEnum } from '@axolotesource/ui/components/Buttons/enums/buttonVariant.enum'
-import { Badge } from '@axolotesource/ui/components/Badge/Badge'
-import { IFilters } from '@axolotesource/ui/components/Filters/ModalFilter/types'
 import { SizeEnum } from '@/enums/SizeEnum'
 import { useModal } from '@/hooks/useModal'
 import { useRefreshKey } from '@/hooks/useRefreshKey'
 import { IMenu } from '@/interfaces/models/Menu/IMenu'
 import { RoutesAuthxolote } from '@/routes/modules/authxolote.routes'
 import { useServiceDeleteMenu, useServiceIndexMenus } from '@/services/authxolote/menus/useServiceMenus'
+import { Badge } from '@axolotesource/ui/components/Badge/Badge'
+import Button from '@axolotesource/ui/components/Buttons/Button'
+import { ButtonVariantEnum } from '@axolotesource/ui/components/Buttons/enums/buttonVariant.enum'
+import { IFilters } from '@axolotesource/ui/components/Filters/ModalFilter/types'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Eye, Pencil, Trash2 } from 'lucide-react'
@@ -54,11 +54,7 @@ export const useMenusPage = () => {
 
   const renderersMap = {
     active: (data: IMenu) => {
-      return (
-        <Badge variant={data.active ? 'success' : 'danger'}>
-          {data.active ? t('yes') : t('no')}
-        </Badge>
-      )
+      return <Badge variant={data.active ? 'success' : 'danger'}>{data.active ? t('yes') : t('no')}</Badge>
     },
     created_at: (data: IMenu) => {
       return format(new Date(data.created_at), "d 'de' MMMM yyyy, HH:mm", { locale: es })

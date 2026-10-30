@@ -1,8 +1,8 @@
-import { IFilters } from '@axolotesource/ui/components/Filters/ModalFilter/types'
 import { useModal } from '@/hooks/useModal'
 import { useRefreshKey } from '@/hooks/useRefreshKey'
 import { IUser } from '@/interfaces/models/User/user.interface'
 import { useServiceIndexUsers } from '@/services/authxolote/users/useServiceUsers'
+import { IFilters } from '@axolotesource/ui/components/Filters/ModalFilter/types'
 
 export interface IFilterSearchUser {
   name: string

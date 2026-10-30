@@ -90,7 +90,7 @@ php artisan authxolote:menu
 | `VITE_MESSAGES_URL` | LaraAxMessages API base | `https://laraaxmessages.test` |
 | `VITE_AUTH_URL` | Authxolote API base (login + menu source) | `https://authxolote.test` |
 | `VITE_MENU_SLUG` | Unified menu slug | `salamandr` |
-| `VITE_ENABLE_LIVE_MENUS` | `true` = fetch live menu; `false` = static `configs/menu.config` | `true` |
+| `VITE_ENABLE_LIVE_MENUS` | `true` = fetch live menu from Authxolote; `false` = no menu | `true` |
 | `VITE_REAL_AUTH` | `true` = real login + 401 auto-logout; `false` = demo | `true` |
 | `AUTHXOLOTE_URL` | Authxolote base for the SDK/artisan | `https://authxolote.test` |
 | `AUTHXOLOTE_TOKEN` | Author token for `authxolote:menu` | *(secret — blank in `.env.example`)* |
@@ -159,7 +159,8 @@ group + messages group). The SPA then loads
   `services/auth/useServiceAuth` (real login). `configs/axiosConfig` adds the
   bearer and handles 401 (menu 401s never log you out).
 - **Menu:** `hooks/useAppMenu` fetches the unified menu when authenticated and
-  feeds the sidebar; static fallback in `configs/menu.config.ts`.
+  feeds the sidebar. There is no static fallback: the sidebar stays empty until
+  Authxolote responds.
 - **Sections:** pages under `pages/Authxolote/**` and `pages/Messages/**`, each
   with its own `services/*` sharing the `customHost` API pattern
   (`ApisEnum.BaseUrl | BaseMessages | BaseLogin`).

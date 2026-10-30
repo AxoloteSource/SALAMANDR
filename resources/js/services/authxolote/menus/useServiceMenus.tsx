@@ -1,11 +1,11 @@
 import { ApisEnum } from '@/configs/apisEnum'
 import { axiosDELETE, useGET, usePOST, usePUT } from '@/hooks/useApi'
 import { useAxios } from '@/hooks/useAxios'
-import { useMutation } from '@tanstack/react-query'
 import { IPaginate } from '@/interfaces/IPaginate'
 import { IPaginateServiceProps } from '@/interfaces/IPaginateServiceProps'
 import { IMenu } from '@/interfaces/models/Menu/IMenu'
 import { IMenuShow } from '@/interfaces/models/Menu/IMenuShow'
+import { useMutation } from '@tanstack/react-query'
 
 const url = '/api/v1/menus'
 const urlLogin = ApisEnum.BaseLogin
@@ -39,6 +39,6 @@ export const useServiceDeleteMenu = () => {
   const { axiosApi } = useAxios()
 
   return useMutation({
-    mutationFn: (id: string) => axiosDELETE(axiosApi, { url: `${url}/${id}` })
+    mutationFn: (id: string) => axiosDELETE(axiosApi, { url: `${url}/${id}`, customHost: urlLogin })
   })
 }

@@ -1,3 +1,5 @@
+import { Color } from '@/enums/Color'
+import { IApplication } from '@/interfaces/models/Application/IApplication'
 import Button from '@axolotesource/ui/components/Buttons/Button'
 import { ButtonTypeEnum } from '@axolotesource/ui/components/Buttons/enums/buttonType.enum'
 import { Input } from '@axolotesource/ui/components/Form/Input'
@@ -5,8 +7,6 @@ import { InputTypeEnum } from '@axolotesource/ui/components/Form/Input/InputType
 import Switch from '@axolotesource/ui/components/Form/Switch'
 import TextArea from '@axolotesource/ui/components/Form/TextArea/TextArea'
 import Modal from '@axolotesource/ui/components/Modal/Modal'
-import { Color } from '@/enums/Color'
-import { IApplication } from '@/interfaces/models/Application/IApplication'
 import { Form, Formik } from 'formik'
 import { IInitialValuesApplication, useApplicationForm } from './useApplicationForm'
 
@@ -32,13 +32,7 @@ export const ApplicationForm = ({ close, selectedApplication, isOpen, onSuccess 
           <Form className="mb-4 grid grid-cols-12 gap-3 sm:grid-cols-12">
             <Input<IInitialValuesApplication> className="col-span-12" name="name" type={InputTypeEnum.Text} label={`${t('name')}`} formik={formik} />
             <Input<IInitialValuesApplication> className="col-span-12" name="slug" type={InputTypeEnum.Text} label={`${t('slug')}`} formik={formik} />
-            <TextArea<IInitialValuesApplication>
-              className="col-span-12"
-              name="description"
-              label={`${t('description')}`}
-              formik={formik}
-              rows={3}
-            />
+            <TextArea<IInitialValuesApplication> className="col-span-12" name="description" label={`${t('description')}`} formik={formik} rows={3} />
             <Switch<IInitialValuesApplication> className="col-span-12" name="active" label={`${t('active')}`} formik={formik} />
             <div className="col-span-12 mt-3 flex justify-between gap-3">
               <Button className="col-span-12 md:col-span-6" onClick={close} type={ButtonTypeEnum.Button} color={Color.White}>

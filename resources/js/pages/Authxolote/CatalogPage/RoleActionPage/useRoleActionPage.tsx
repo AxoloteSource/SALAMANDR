@@ -1,8 +1,8 @@
-import { IFilters } from '@axolotesource/ui/components/Filters/ModalFilter/types'
 import { useModal } from '@/hooks/useModal'
 import { useRefreshKey } from '@/hooks/useRefreshKey'
 import { IAction } from '@/interfaces/models/Actions/IAction'
 import { useServiceIndexRoleActions } from '@/services/authxolote/roleActions/useServiceRoleActions'
+import { IFilters } from '@axolotesource/ui/components/Filters/ModalFilter/types'
 import { useSearchParams } from 'react-router-dom'
 import { ActionSwitch } from './ActionSwitch'
 

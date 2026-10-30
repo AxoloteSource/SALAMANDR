@@ -1,3 +1,6 @@
+import { Color } from '@/enums/Color'
+import { SizeEnum } from '@/enums/SizeEnum'
+import { RoutesAuthxolote } from '@/routes/modules/authxolote.routes'
 import Button from '@axolotesource/ui/components/Buttons/Button'
 import { ButtonTypeEnum } from '@axolotesource/ui/components/Buttons/enums/buttonType.enum'
 import Card from '@axolotesource/ui/components/Card/Card'
@@ -5,15 +8,12 @@ import CardTitle from '@axolotesource/ui/components/Card/partials/CardTitle'
 import InputSelect from '@axolotesource/ui/components/Form/Select/Select'
 import { MenuV2 } from '@axolotesource/ui/components/MenuV2/MenuV2'
 import { resolveIcon } from '@axolotesource/ui/components/MenuV2/resolveIcon'
-import { Color } from '@/enums/Color'
 import { Page } from '@axolotesource/ui/components/Page/Page'
-import { RoutesAuthxolote } from '@/routes/modules/authxolote.routes'
 import { Form, Formik } from 'formik'
-import { useTranslation } from 'react-i18next'
 import { Plus } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { MenuItemFormFields } from './partials/MenuItemForm/MenuItemFormFields'
 import { useMenuShowPage } from './useMenuShowPage'
-import {SizeEnum} from "@/enums/SizeEnum";
 
 const breadCrumblesItems = [
   { to: RoutesAuthxolote.Home, children: 'home' },
@@ -30,9 +30,11 @@ const MenuShowPage = () => {
     menu,
     roleOptions,
     rolesLoading,
+    orderedItems,
     selectedMenuItem,
     handleEdit,
     handleToggleRole,
+    handleReorder,
     handleDelete,
     handleCancel,
     handleSuccess,
@@ -64,23 +66,36 @@ const MenuShowPage = () => {
             </Formik>
           </Card>
           <Card>
-            <div className="flex items-center justify-between">
-              <CardTitle actionButton={
-                <Button type={ButtonTypeEnum.Button} color={Color.Primary} onClick={openModal} size={SizeEnum.XXS}>
-                  <Plus size={16} className="mr-1" />
-                  {t('new')}
-                </Button>
-              }>{t('menu')}</CardTitle>
-
+            <div className="[&>div]:flex-row-reverse">
+              <CardTitle
+                actionButton={
+                  <Button type={ButtonTypeEnum.Button} color={Color.Primary} onClick={openModal} size={SizeEnum.XXS}>
+                    <Plus size={16} className="mr-1" />
+                    {t('new')}
+                  </Button>
+                }
+              >
+                {t('menu_title')}
+              </CardTitle>
             </div>
             <nav className={`sidebar py-4 shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300`}>
               <ul className="relative space-y-0.5 p-4 py-0 font-semibold">
                 <li className="nav-item">
-                  <MenuV2 menu={menu} editMode onEdit={handleEdit} onDelete={handleDelete} onToggleRole={handleToggleRole} />
+                  <MenuV2
+                    menu={menu ? { ...menu, items: orderedItems } : menu}
+                    editMode
+                    sortable
+                    reorderLabel={t('menu_reorder_label')}
+                    onReorder={handleReorder}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    onToggleRole={handleToggleRole}
+                  />
                 </li>
               </ul>
             </nav>
             <div className="mt-4 flex flex-col gap-2 border-t border-[var(--border)] pt-4">
+              <p className="text-sm text-gray-500">{t('menu_reorder_hint')}</p>
               <p className="text-sm text-gray-500">{t('menu_item_toggle_hint')}</p>
               <span className="text-sm font-semibold">{t('legend')}</span>
               <div className="flex flex-col justify-start gap-4 text-sm">
@@ -109,12 +124,12 @@ const MenuShowPage = () => {
                   {t(selectedMenuItem.name)}
                 </span>
               </CardTitle>
-              <MenuItemFormFields selectedMenuItem={selectedMenuItem} onSuccess={handleSuccess} onCancel={handleCancel} />
+              <MenuItemFormFields key={selectedMenuItem.id} selectedMenuItem={selectedMenuItem} onSuccess={handleSuccess} onCancel={handleCancel} />
             </div>
           ) : isModalOpen ? (
             <div>
               <CardTitle>{t('new_menu_item')}</CardTitle>
-              <MenuItemFormFields onSuccess={handleSuccess} onCancel={closeModal} menuId={menu?.id} />
+              <MenuItemFormFields key="new" onSuccess={handleSuccess} onCancel={closeModal} menuId={menu?.id} />
             </div>
           ) : null}
         </Card>

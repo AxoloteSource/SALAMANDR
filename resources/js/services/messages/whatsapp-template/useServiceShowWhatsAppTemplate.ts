@@ -5,7 +5,5 @@ import { IWhatsAppTemplate } from '@/services/messages/interfaces/IWhatsAppTempl
 const url = '/api/v1/whatsapp/templates'
 
 export const useServiceShowWhatsAppTemplate = (id: string) => {
-  return useGET<IWhatsAppTemplate>({ customHost: ApisEnum.BaseMessages, 
-    url: `${url}/${id}`
-  })
+  return useGET<IWhatsAppTemplate>({ customHost: ApisEnum.BaseMessages, url: `${url}/${id}` })
 }

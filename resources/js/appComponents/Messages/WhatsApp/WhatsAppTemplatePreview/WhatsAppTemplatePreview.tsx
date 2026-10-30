@@ -1,7 +1,7 @@
 import wpFondoDark from '@/appComponents/Messages/assets/wp-fondo-dark.jpg'
 import wpFondo from '@/appComponents/Messages/assets/wp-fondo.jpg'
-import { Avatar } from '@axolotesource/ui/components/Avatar/Avatar'
 import { IWhatsAppTemplate } from '@/services/messages/interfaces/IWhatsAppTemplate'
+import { Avatar } from '@axolotesource/ui/components/Avatar/Avatar'
 import { ButtonsPreview } from './ButtonsPreview'
 import { FooterPreview } from './FooterPreview'
 import { HeaderPreview } from './HeaderPreview'

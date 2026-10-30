@@ -13,7 +13,7 @@ importers:
     dependencies:
       '@axolotesource/ui':
         specifier: github:AxoloteSource/ui#main
-        version: https://codeload.github.com/AxoloteSource/ui/tar.gz/21e460a16f094dff49f8acf3ed34f39b60f0732d(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.105.0(@types/react@19.3.0)(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)(typescript@5.9.3)
+        version: https://codeload.github.com/AxoloteSource/ui/tar.gz/e051708ebeca0f748265a823c9ad88cdf24fe0be(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.105.0(@types/react@19.3.0)(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)(typescript@5.9.3)
       '@mantine/core':
         specifier: ^8.3.18
         version: 8.3.18(@mantine/hooks@8.3.18(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -169,8 +169,8 @@ importers:
 
 packages:
 
-  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/21e460a16f094dff49f8acf3ed34f39b60f0732d':
-    resolution: {gitHosted: true, integrity: sha512-RYxx6HX1Iaa2uzwED0dqkB6ItyoXgkQobBbF2kV/CzGEnX6HKAGkfxLk1pflrA6+JL4A29qe3quQsAP6qpH6xQ==, tarball: https://codeload.github.com/AxoloteSource/ui/tar.gz/21e460a16f094dff49f8acf3ed34f39b60f0732d}
+  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/e051708ebeca0f748265a823c9ad88cdf24fe0be':
+    resolution: {gitHosted: true, integrity: sha512-TajD2Ux0iWUKQYFp67EZFQ6EOSFWThcsO+CtzaF93/412qVzRjbO/tNA+tjKmPp80W5RKlpFuyKSBZlIYQo8ug==, tarball: https://codeload.github.com/AxoloteSource/ui/tar.gz/e051708ebeca0f748265a823c9ad88cdf24fe0be}
     version: 0.1.0
     peerDependencies:
       '@tanstack/react-query': ^5.104.2
@@ -254,6 +254,28 @@ packages:
   '@babel/types@7.29.11':
     resolution: {integrity: sha512-WCsemW40Cpc6gouC1SrY6PBaZ+oLRlEVY9XBvZBI7il/HyUrb2nJ505wE1MHEFyDZNnrWDEuy4jL50WVHfTTSQ==}
     engines: {node: '>=6.9.0'}
+
+  '@dnd-kit/accessibility@3.1.1':
+    resolution: {integrity: sha512-2P+YgaXF+gRsIihwwY1gCsQSYnu9Zyj2py8kY5fFvUM1qm2WA2u639R6YNVfU4GWr+ZM5mqEsfHZZLoRONbemw==}
+    peerDependencies:
+      react: '>=16.8.0'
+
+  '@dnd-kit/core@6.3.1':
+    resolution: {integrity: sha512-xkGBRQQab4RLwgXxoqETICr6S5JlogafbhNsidmrkVv2YRs5MLwpjoF2qpiGjQt8S9AoxtIV603s0GIUpY5eYQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
+  '@dnd-kit/sortable@10.0.0':
+    resolution: {integrity: sha512-+xqhmIIzvAYMGfBYYnbKuNicfSsk4RksY2XdmJhT+HAC01nix6fHCztU68jooFiMUB01Ky3F0FyOvhG/BZrWkg==}
+    peerDependencies:
+      '@dnd-kit/core': ^6.3.0
+      react: '>=16.8.0'
+
+  '@dnd-kit/utilities@3.2.2':
+    resolution: {integrity: sha512-+MKAJEOfaBe5SmV6t34p80MMKhjvUz0vRrvVJbPT0WElzaOJ/1xs+D+KDv+tD/NE5ujfrChEcshd4fLn0wpiqg==}
+    peerDependencies:
+      react: '>=16.8.0'
 
   '@emotion/babel-plugin@11.13.5':
     resolution: {integrity: sha512-pxHCpT2ex+0q+HH91/zsdHkw/lXd468DIN2zvfvLtPKLLMo6gQj7oLObq8PhkrxOZb/gGCq03S3Z7PDhS8pduQ==}
@@ -3090,8 +3112,11 @@ packages:
 
 snapshots:
 
-  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/21e460a16f094dff49f8acf3ed34f39b60f0732d(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.105.0(@types/react@19.3.0)(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)(typescript@5.9.3)':
+  '@axolotesource/ui@https://codeload.github.com/AxoloteSource/ui/tar.gz/e051708ebeca0f748265a823c9ad88cdf24fe0be(@mantine/hooks@8.3.18(react@19.3.1))(@tanstack/react-query@5.105.0(@types/react@19.3.0)(react@19.3.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(debug@4.4.3(supports-color@7.2.0))(formik@2.4.9(@types/react@19.3.0)(react@19.3.1))(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react-i18next@16.6.6(i18next@25.10.10(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@5.9.3))(react-router-dom@7.18.5(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-select@5.10.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@7.2.0))(react@19.3.1)(supports-color@7.2.0)(typescript@5.9.3)':
     dependencies:
+      '@dnd-kit/core': 6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+      '@dnd-kit/utilities': 3.2.2(react@19.3.1)
       '@floating-ui/react': 0.27.20(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@headlessui/react': 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@mantine/core': 8.3.18(@mantine/hooks@8.3.18(react@19.3.1))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -3253,6 +3278,31 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.11
       '@babel/helper-validator-identifier': 7.29.7
+
+  '@dnd-kit/accessibility@3.1.1(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      tslib: 2.8.1
+
+  '@dnd-kit/core@6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@dnd-kit/accessibility': 3.1.1(react@19.3.1)
+      '@dnd-kit/utilities': 3.2.2(react@19.3.1)
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
+      tslib: 2.8.1
+
+  '@dnd-kit/sortable@10.0.0(@dnd-kit/core@6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@dnd-kit/core': 6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@dnd-kit/utilities': 3.2.2(react@19.3.1)
+      react: 19.3.1
+      tslib: 2.8.1
+
+  '@dnd-kit/utilities@3.2.2(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      tslib: 2.8.1
 
   '@emotion/babel-plugin@11.13.5(supports-color@7.2.0)':
     dependencies:

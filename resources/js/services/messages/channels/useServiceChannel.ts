@@ -13,7 +13,5 @@ interface IChannelResponse {
 const url = '/api/v1/channels'
 
 export const useServiceIndexChannels = () => {
-  return useGET<IChannelResponse>({ customHost: ApisEnum.BaseMessages, 
-    url
-  })
+  return useGET<IChannelResponse>({ customHost: ApisEnum.BaseMessages, url })
 }

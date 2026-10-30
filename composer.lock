@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/AxoloteSource/authxolote-sdk.git",
-                "reference": "eca72afa772213e46816e0b69f9e60babafcdd6a"
+                "reference": "45fb917c2b60cd70a84a42c77524c6952d2c4881"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AxoloteSource/authxolote-sdk/zipball/eca72afa772213e46816e0b69f9e60babafcdd6a",
-                "reference": "eca72afa772213e46816e0b69f9e60babafcdd6a",
+                "url": "https://api.github.com/repos/AxoloteSource/authxolote-sdk/zipball/45fb917c2b60cd70a84a42c77524c6952d2c4881",
+                "reference": "45fb917c2b60cd70a84a42c77524c6952d2c4881",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 "issues": "https://github.com/AxoloteSource/authxolote-sdk/issues",
                 "source": "https://github.com/AxoloteSource/authxolote-sdk/tree/main"
             },
-            "time": "2026-10-28T23:45:31+00:00"
+            "time": "2026-10-30T22:09:37+00:00"
         },
         {
             "name": "brick/math",
@@ -1582,16 +1582,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.10.4",
+            "version": "2.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65"
+                "reference": "cb3d6a523587751db4b8e1d0c3945d2d68535bd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/40821b7606d8d946bac57dbd2290076c722e3a65",
-                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/cb3d6a523587751db4b8e1d0c3945d2d68535bd3",
+                "reference": "cb3d6a523587751db4b8e1d0c3945d2d68535bd3",
                 "shasum": ""
             },
             "require": {
@@ -1685,7 +1685,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-17T19:59:50+00:00"
+            "time": "2026-10-30T12:21:38+00:00"
         },
         {
             "name": "league/config",
@@ -2911,16 +2911,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "e3647094ed8f0f1f67393d812b793a5143e25af3"
+                "reference": "af8e840551031d254cfdb3a18a62c3470a309c10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/e3647094ed8f0f1f67393d812b793a5143e25af3",
-                "reference": "e3647094ed8f0f1f67393d812b793a5143e25af3",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/af8e840551031d254cfdb3a18a62c3470a309c10",
+                "reference": "af8e840551031d254cfdb3a18a62c3470a309c10",
                 "shasum": ""
             },
             "require": {
@@ -2952,9 +2952,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.4.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.4.1"
             },
-            "time": "2026-10-28T20:28:58+00:00"
+            "time": "2026-10-30T19:36:28+00:00"
         },
         {
             "name": "psr/clock",

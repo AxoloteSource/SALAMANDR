@@ -1,6 +1,6 @@
+import { useServiceIndexProviders } from '@/services/messages/providers/useServiceProvider'
 import { Page } from '@axolotesource/ui/components/Page/Page'
 import { DataTableFilter } from '@axolotesource/ui/components/Tables/DataTableFilter/DataTableFilter'
-import { useServiceIndexProviders } from '@/services/messages/providers/useServiceProvider'
 import { useTranslation } from 'react-i18next'
 import { ProviderForm } from './partials/ProviderForm/ProviderForm'
 import { useProviderPage } from './useProviderPage'

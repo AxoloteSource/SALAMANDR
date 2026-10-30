@@ -67,7 +67,9 @@ return [
     |--------------------------------------------------------------------------
     |
     | This option defines the unified SALAMANDR menu to be synced with the
-    | Authxolote API. Use `php artisan authxolote:menu` to sync it.
+    | Authxolote API. Use `php artisan authxolote:menu` to sync it. Add
+    | `--force` to delete it and recreate it from this file (loses roles
+    | and manual changes).
     |
     | Menu item slugs are the array keys, and Authxolote enforces GLOBAL
     | uniqueness across every menu, so each key is namespaced with the
@@ -77,6 +79,7 @@ return [
     */
     'menu' => [
         'name' => 'salamandr',
+        'size' => 'sm',
         'application' => [
             'name' => 'Salamandr',
             'slug' => 'salamandr',
@@ -90,6 +93,7 @@ return [
                 'roles' => ['root', 'admin'],
             ],
             'salamandr-auth' => [
+                'type' => 'section',
                 'icon' => 'Shield',
                 'roles' => ['root', 'admin'],
                 'menu_items' => [
@@ -132,22 +136,29 @@ return [
                             ],
                         ],
                     ],
-                    'salamandr-auth-ui' => [
-                        'icon' => 'Palette',
-                        'name' => 'UI Components',
-                        'menu_items' => [
-                            'salamandr-auth-ui-pricing-card' => [
-                                'path' => '/auth/ui/pricing-card',
-                                'name' => 'Pricing Card',
-                            ],
-                        ],
-                    ],
                 ],
             ],
             'salamandr-messages' => [
+                'type' => 'section',
                 'icon' => 'MessageSquare',
                 'roles' => ['root', 'admin'],
                 'menu_items' => [
+                    'salamandr-messages-config' => [
+                        'icon' => 'Settings',
+                        'name' => 'config',
+                        'menu_items' => [
+                            'salamandr-messages-config-drivers' => [
+                                'path' => '/messages/config/drivers',
+                                'icon' => 'Cpu',
+                                'name' => 'drivers',
+                            ],
+                            'salamandr-messages-config-providers' => [
+                                'path' => '/messages/config/providers',
+                                'icon' => 'Server',
+                                'name' => 'providers',
+                            ],
+                        ],
+                    ],
                     'salamandr-messages-whatsapp' => [
                         'icon' => 'ScrollText',
                         'menu_items' => [
@@ -197,11 +208,6 @@ return [
                         'path' => '/messages/campaigns',
                         'icon' => 'Megaphone',
                         'name' => 'campaigns',
-                    ],
-                    'salamandr-messages-ui' => [
-                        'path' => '/messages/ui',
-                        'icon' => 'Code2',
-                        'name' => 'ui',
                     ],
                     'salamandr-messages-config' => [
                         'icon' => 'Settings',

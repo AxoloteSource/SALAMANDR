@@ -1,10 +1,10 @@
+import { Color } from '@/enums/Color'
+import { IRole } from '@/interfaces/models/Role/IRole'
 import Button from '@axolotesource/ui/components/Buttons/Button'
 import { ButtonTypeEnum } from '@axolotesource/ui/components/Buttons/enums/buttonType.enum'
 import { Input } from '@axolotesource/ui/components/Form/Input'
 import { InputTypeEnum } from '@axolotesource/ui/components/Form/Input/InputType.enum'
 import Modal from '@axolotesource/ui/components/Modal/Modal'
-import { Color } from '@/enums/Color'
-import { IRole } from '@/interfaces/models/Role/IRole'
 import { Form, Formik } from 'formik'
 import { IInitialValuesNewRole, useRoleForm } from './useRoleForm'
 
