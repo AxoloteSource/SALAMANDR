@@ -2,6 +2,19 @@ import { ApisEnum } from '@/configs/apisEnum'
 import { axiosApi } from '@/configs/axiosConfig'
 import { useLogoutSync } from '@/hooks/useLogoutSync'
 import { IUser } from '@/interfaces/models/User/user.interface'
+import { clearSession, ensureSessionId, refreshAccessToken, revokeSession, startSession, subscribeAuthSession } from '@/lib/authSession'
+import {
+  AUTH_STORAGE_KEYS,
+  clearStoredUser,
+  getAccessToken,
+  getRefreshToken,
+  getStoredSession,
+  getStoredUser,
+  hasStoredSession,
+  storeUser
+} from '@/lib/authStorage'
+import { queryClient } from '@/lib/queryClient'
+import axios from 'axios'
 import { createContext, useCallback, useEffect, useState } from 'react'
 import { IAuthContextType } from './interfaces/IAuthContextType'
 import { IAuthProviderProps } from './interfaces/IAuthProviderProps'
@@ -9,74 +22,166 @@ import { IAuthProviderProps } from './interfaces/IAuthProviderProps'
 export const AxiosContext = createContext<IAuthContextType | undefined>(undefined)
 
 export const AxiosProvider = ({ children }: IAuthProviderProps) => {
-  const [authToken, setAuthToken] = useState<string | null>(localStorage.getItem('authToken'))
-  const [user, setUser] = useState<IUser | null>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null)
+  const [authToken, setAuthToken] = useState<string | null>(() => getAccessToken())
+  const [user, setUser] = useState<IUser | null>(() => getStoredUser<IUser>())
+  const [isInitializing, setIsInitializing] = useState<boolean>(() => hasStoredSession())
+  const [sessionExpired, setSessionExpired] = useState<boolean>(false)
 
-  const configureAxiosHeaders = (token: string | null) => {
-    if (token) {
-      axiosApi.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      localStorage.setItem('authToken', token)
-    } else {
-      delete axiosApi.defaults.headers.common['Authorization']
-      localStorage.removeItem('authToken')
-    }
-    setAuthToken(token)
-  }
-
-  const configUser = (nextUser: IUser | null) => {
+  const configUser = useCallback((nextUser: IUser | null) => {
     if (nextUser) {
-      localStorage.setItem('user', JSON.stringify(nextUser))
+      storeUser(nextUser)
     } else {
-      localStorage.removeItem('user')
+      clearStoredUser()
     }
-    setUser(nextUser)
-  }
 
-  const logout = useCallback(() => {
-    // Best-effort server logout (invalidate the Passport token), then clear locally.
-    void axiosApi.post('/api/v1/logout', {}, { baseURL: String(ApisEnum.BaseLogin) }).catch(() => undefined)
-    configureAxiosHeaders(null)
-    configUser(null)
-    window.location.replace('/login')
+    setUser(nextUser)
   }, [])
+
+  const clearPrivateState = useCallback(
+    (expired: boolean) => {
+      setAuthToken(null)
+      configUser(null)
+      setSessionExpired(expired)
+      setIsInitializing(false)
+      void queryClient.cancelQueries()
+      queryClient.clear()
+    },
+    [configUser]
+  )
+
+  useEffect(
+    () =>
+      subscribeAuthSession((event) => {
+        if (event.type === 'tokens-refreshed') {
+          setAuthToken(event.tokens.accessToken)
+          return
+        }
+
+        clearPrivateState(event.type === 'session-expired')
+      }),
+    [clearPrivateState]
+  )
+
+  // Keep the React state in sync when another tab rotates the access token.
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === AUTH_STORAGE_KEYS.accessToken && event.newValue) {
+        setAuthToken(event.newValue)
+        setSessionExpired(false)
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+    }
+  }, [])
+
+  // Validate the stored session before rendering protected routes.
+  useEffect(() => {
+    let cancelled = false
+
+    const bootstrapSession = async () => {
+      if (!getAccessToken() && !getRefreshToken()) {
+        setIsInitializing(false)
+        return
+      }
+
+      try {
+        if (!getAccessToken() && getRefreshToken()) {
+          await refreshAccessToken()
+        }
+
+        ensureSessionId()
+
+        const response = await axiosApi.post('/api/v1/me', {}, { baseURL: String(ApisEnum.BaseLogin), timeout: 15_000 })
+        // The response envelope { status, message, data: { user } } is unwrapped
+        // by the interceptor to { user }.
+        const payload = response.data as { user?: IUser } | IUser
+        const userData = (payload as { user?: IUser })?.user ?? payload
+
+        if (!cancelled && userData) {
+          configUser(userData as IUser)
+        }
+
+        if (!cancelled) {
+          setAuthToken(getAccessToken())
+        }
+      } catch (error) {
+        if (cancelled) {
+          return
+        }
+
+        if (axios.isAxiosError(error)) {
+          if (!error.response) {
+            console.warn('[auth] unable to restore session', { reason: 'network' })
+          } else if (error.response.status !== 401) {
+            console.warn('[auth] unable to restore session', { status: error.response.status })
+          }
+        }
+      } finally {
+        if (!cancelled) {
+          setIsInitializing(false)
+        }
+      }
+    }
+
+    void bootstrapSession()
+
+    return () => {
+      cancelled = true
+    }
+  }, [configUser])
+
+  const logout = useCallback(async () => {
+    const session = getStoredSession()
+
+    clearPrivateState(false)
+    clearSession()
+
+    await revokeSession(session)
+  }, [clearPrivateState])
 
   // Synchronize logout across all browser tabs
   useLogoutSync(logout)
 
-  useEffect(() => {
-    if (authToken) {
-      axiosApi.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
-    }
-  }, [authToken])
-
-  const updateUser = useCallback((nextUser: IUser) => {
-    configUser(nextUser)
-  }, [])
+  const updateUser = useCallback(
+    (nextUser: IUser) => {
+      configUser(nextUser)
+    },
+    [configUser]
+  )
 
   const fetchUser = useCallback(async () => {
-    if (!authToken) return
+    if (!getAccessToken() && !getRefreshToken()) return
+
     try {
-      const response = await axiosApi.post('/api/v1/me', {}, { baseURL: String(ApisEnum.BaseLogin) })
-      // Envelope {status,message,data:{user}} is unwrapped by the interceptor to {user}.
+      const response = await axiosApi.post('/api/v1/me', {}, { baseURL: String(ApisEnum.BaseLogin), timeout: 15_000 })
+      // The response envelope { status, message, data: { user } } is unwrapped
+      // by the interceptor to { user }.
       const payload = response.data as { user?: IUser } | IUser
       const userData = (payload as { user?: IUser })?.user ?? payload
+
       if (userData) {
         configUser(userData as IUser)
       }
     } catch (error) {
-      console.error('Error fetching user profile', error)
+      if (axios.isAxiosError(error) && error.response && error.response.status !== 401) {
+        console.warn('[auth] unable to fetch user profile', { status: error.response.status })
+      }
     }
-  }, [authToken])
+  }, [configUser])
 
-  const saveAuth = (accessToken: string, nextUser: IUser) => {
-    try {
-      configureAxiosHeaders(accessToken)
+  const saveAuth = useCallback(
+    (accessToken: string, refreshToken: string, nextUser: IUser) => {
+      startSession({ accessToken, refreshToken })
+      setAuthToken(accessToken)
+      setSessionExpired(false)
       configUser(nextUser)
-    } catch (error) {
-      console.error('Authentication error', error)
-      throw error
-    }
-  }
+    },
+    [configUser]
+  )
 
   const isAuth = !!authToken
   const businessId = user?.business_id ?? 1
@@ -85,6 +190,8 @@ export const AxiosProvider = ({ children }: IAuthProviderProps) => {
     authToken,
     user,
     isAuth,
+    isInitializing,
+    sessionExpired,
     businessId,
     saveAuth,
     updateUser,

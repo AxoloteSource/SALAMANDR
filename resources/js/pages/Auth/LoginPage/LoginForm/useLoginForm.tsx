@@ -18,8 +18,8 @@ export const useLoginForm = ({ mutateAsync }: IFormsMutator): IFormikProps<IInit
   const { onSubmit } = useOnSubmit<IInitialValuesLogin, ILoginResponse>({
     mutateAsync,
     onSuccess: (data) => {
-      // LoginResource already returns { user, access_token }.
-      saveAuth(data.access_token, data.user)
+      // LoginResource already returns { user, access_token, refresh_token }.
+      saveAuth(data.access_token, data.refresh_token, data.user)
       navigate(RoutesApp.Home)
     }
   })

@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import LoginForm from './LoginForm/LoginForm'
 
 const LoginPage = () => {
-  const { isAuth } = useAxios()
+  const { isAuth, isInitializing } = useAxios()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isAuth) {
+    if (isAuth && !isInitializing) {
       navigate(RoutesApp.Home)
     }
-  }, [isAuth, navigate])
+  }, [isAuth, isInitializing, navigate])
 
   return (
     <AuthLayout>

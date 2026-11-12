@@ -1,3 +1,4 @@
+import { AUTH_STORAGE_KEYS } from '@/lib/authStorage'
 import { useEffect } from 'react'
 
 /**
@@ -8,7 +9,7 @@ import { useEffect } from 'react'
 export const useLogoutSync = (logout: () => void) => {
   useEffect(() => {
     const handleLogoutFromOtherTab = (event: StorageEvent) => {
-      if (event.key === 'authToken' && event.newValue === null) {
+      if (event.key === AUTH_STORAGE_KEYS.accessToken && event.newValue === null) {
         logout()
       }
 

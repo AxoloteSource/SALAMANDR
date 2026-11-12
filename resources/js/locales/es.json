@@ -136,6 +136,7 @@
   "email_templates": "Plantillas de correo",
   "password": "Contraseña",
   "sign_in": "Iniciar sesión",
+  "session_expired": "Tu sesión expiró. Inicia sesión de nuevo.",
   "invalid_email_format": "Formato de correo electrónico inválido",
   "the_email_field_is_required": "El campo de correo electrónico es obligatorio",
   "password_is_required": "La contraseña es obligatoria",
