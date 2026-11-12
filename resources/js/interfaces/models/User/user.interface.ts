@@ -3,6 +3,12 @@ export interface IUserRole {
   name?: string
 }
 
+export interface IUserType {
+  id: string
+  name: string
+  key: string
+}
+
 export interface IUser {
   id: string | number
   name: string
@@ -14,4 +20,9 @@ export interface IUser {
   business_id?: number
   role?: IUserRole | null
   role_key?: string
+  user_type_id?: string
+  user_type?: IUserType | null
+  user_type_name?: string | null
+  banned_at?: string | null
+  created_at?: string
 }

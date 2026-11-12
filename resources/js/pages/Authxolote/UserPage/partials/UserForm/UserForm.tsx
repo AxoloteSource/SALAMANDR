@@ -1,5 +1,6 @@
 import { Color } from '@/enums/Color'
 import { useServiceIndexRoles } from '@/services/authxolote/roles/useServiceRoles'
+import { useServiceIndexUserTypes } from '@/services/authxolote/userTypes/useServiceUserTypes'
 import Button from '@axolotesource/ui/components/Buttons/Button'
 import { ButtonTypeEnum } from '@axolotesource/ui/components/Buttons/enums/buttonType.enum'
 import { Input } from '@axolotesource/ui/components/Form/Input'
@@ -18,10 +19,12 @@ interface IUserFormProps {
 }
 
 export const UserForm = ({ close, isOpen, onSuccess }: IUserFormProps) => {
-  const { formikProps, t } = useUserForm({ onSuccess })
   const { data: rolesData, isLoading: rolesLoading } = useServiceIndexRoles({ page: 1, limit: 100 })
+  const { data: userTypes, isLoading: userTypesLoading } = useServiceIndexUserTypes()
+  const { formikProps, t } = useUserForm({ onSuccess, userTypes })
 
   const roleOptions = useMemo<IOptions[]>(() => (rolesData?.data ?? []).map((role) => ({ value: role.id, label: role.name })), [rolesData])
+  const userTypeOptions = useMemo<IOptions[]>(() => (userTypes ?? []).map((type) => ({ value: type.id, label: type.name })), [userTypes])
 
   return (
     <Modal className="w-full max-w-lg" title={t('new_user')} isOpen={isOpen} close={close} closeOnOverlayClick={false}>
@@ -37,6 +40,15 @@ export const UserForm = ({ close, isOpen, onSuccess }: IUserFormProps) => {
               formik={formik}
               options={roleOptions}
               isLoading={rolesLoading}
+            />
+            <InputSelect<IInitialValuesUser>
+              className="col-span-12"
+              name="user_type_id"
+              label={`${t('user_type')}`}
+              formik={formik}
+              options={userTypeOptions}
+              isLoading={userTypesLoading}
+              isClearable={false}
             />
             <Input<IInitialValuesUser>
               className="col-span-12"

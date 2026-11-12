@@ -1,10 +1,13 @@
 import IRoute from '@/interfaces/IRoute'
+import { IUser } from '@/interfaces/models/User/user.interface'
 import { lazy } from 'react'
 
 const HomePage = lazy(() => import('@/pages/Authxolote/HomePage/HomePage'))
 const UserPage = lazy(() => import('@/pages/Authxolote/UserPage/UserPage'))
 const UserListPage = lazy(() => import('@/pages/Authxolote/UserListPage/UserListPage'))
 const ApplicationsPage = lazy(() => import('@/pages/Authxolote/ApplicationsPage/ApplicationsPage'))
+const PersonalAccessTokensPage = lazy(() => import('@/pages/Authxolote/DevelopPage/PersonalAccessTokensPage/PersonalAccessTokensPage'))
+const PersonalAccessTokensShowPage = lazy(() => import('@/pages/Authxolote/DevelopPage/PersonalAccessTokensShowPage/PersonalAccessTokensShowPage'))
 const MenusPage = lazy(() => import('@/pages/Authxolote/MenuPage/MenusPage/MenusPage'))
 const MenuShowPage = lazy(() => import('@/pages/Authxolote/MenuPage/MenuShowPage/MenuShowPage'))
 const RolePage = lazy(() => import('@/pages/Authxolote/CatalogPage/RolePage/RolePage'))
@@ -21,6 +24,8 @@ export enum RoutesAuthxolote {
   Users = '/auth/users',
   UserLists = '/auth/user-lists',
   MenuApplications = '/auth/applications',
+  DevelopPersonalAccessTokens = '/auth/develop/personal-access-tokens',
+  DevelopPersonalAccessTokensShow = '/auth/develop/personal-access-tokens/:userId',
   MenuMenus = '/auth/menus',
   MenuShow = '/auth/menus/show',
   Catalog = '/auth/catalogs',
@@ -52,6 +57,18 @@ export const authxoloteRoutes: IRoute[] = [
     path: RoutesAuthxolote.MenuApplications,
     element: <ApplicationsPage />,
     private: true
+  },
+  {
+    path: RoutesAuthxolote.DevelopPersonalAccessTokens,
+    element: <PersonalAccessTokensPage />,
+    private: true,
+    hasPermission: (user: IUser) => user.role?.key === 'root' || user.role?.key === 'admin'
+  },
+  {
+    path: RoutesAuthxolote.DevelopPersonalAccessTokensShow,
+    element: <PersonalAccessTokensShowPage />,
+    private: true,
+    hasPermission: (user: IUser) => user.role?.key === 'root' || user.role?.key === 'admin'
   },
   {
     path: RoutesAuthxolote.MenuMenus,

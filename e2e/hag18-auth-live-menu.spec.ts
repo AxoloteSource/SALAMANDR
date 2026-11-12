@@ -8,10 +8,10 @@ const AUTH_ITEMS = [
   '/auth/user-lists',
   '/auth/users',
   '/auth/applications',
+  '/auth/develop/personal-access-tokens',
   '/auth/catalogs/roles',
   '/auth/catalogs/roles/actions',
-  '/auth/menus',
-  '/auth/ui/pricing-card'
+  '/auth/menus'
 ]
 
 const MESSAGES_ITEMS = [
@@ -20,8 +20,7 @@ const MESSAGES_ITEMS = [
   '/messages/whatsapp-info',
   '/messages/emails',
   '/messages/push-notifications',
-  '/messages/campaigns',
-  '/messages/ui'
+  '/messages/campaigns'
 ]
 
 async function submitCreds(page: Page, email: string, password: string) {
@@ -122,7 +121,7 @@ test.describe('HAG-19 live unified menu', () => {
     await expect(sidebar.locator('a[href="/auth/users"]'), 'live menu rendered').toBeAttached({ timeout: 15000 }).catch(() => undefined)
 
     // Groups are collapsible accordions that start closed -> expand the group headers first.
-    for (const group of ['Authxolote', 'Catálogos', 'Menús', 'Mensajes', 'WhatsApp', 'Correo', 'Notificaciones push']) {
+    for (const group of ['Authxolote', 'Desarrollo', 'Catálogos', 'Menús', 'Mensajes', 'WhatsApp', 'Correo', 'Notificaciones push']) {
       await sidebar.getByRole('button', { name: group }).first().click({ timeout: 1500 }).catch(() => undefined)
     }
 
