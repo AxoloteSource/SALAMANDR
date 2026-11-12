@@ -30,7 +30,7 @@ one auth/session, one theme and one sidebar menu.
 | State/data  | Redux Toolkit (theme) + TanStack Query (server data) |
 | UI          | `@axolotesource/ui` (linked to `../ui` locally) |
 | Styling     | Tailwind CSS v4 |
-| Auth        | Real Authxolote login (Passport bearer token) |
+| Auth        | Real Authxolote login + refresh-token rotation (Passport bearer) |
 | SDK         | `axolote-source/authxolote-sdk` (auto-discovered service provider) |
 
 ## Requirements
@@ -173,9 +173,11 @@ before changing the configuration.
   (`modules/app`, `modules/messages`, `modules/authxolote`, `modules/auth`,
   `modules/errors`); `createBrowserRouter` wraps every route in
   `BlankLayout`/`DefaultLayout`.
-- **Auth:** `contexts/AxiosContext` (token + user, cross-tab logout);
-  `services/auth/useServiceAuth` (real login). `configs/axiosConfig` adds the
-  bearer and handles 401 (menu 401s never log you out).
+- **Auth:** `contexts/AxiosContext` (token + user, session bootstrap, cross-tab
+  logout); `services/auth/useServiceAuth` (real login). `configs/axiosConfig`
+  sends the bearer only to authorized hosts and, on 401, rotates the tokens via
+  `lib/authSession` and retries once. Tokens live in `lib/authStorage`
+  (`authToken`, `refreshToken`, `authSessionId`, `user`).
 - **Menu:** `hooks/useAppMenu` fetches the unified menu when authenticated and
   feeds the sidebar. There is no static fallback: the sidebar stays empty until
   Authxolote responds.

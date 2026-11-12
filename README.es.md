@@ -31,7 +31,7 @@ Authxolote.
 | Estado/datos | Redux Toolkit (tema) + TanStack Query (datos del servidor) |
 | UI          | `@axolotesource/ui` (enlazado a `../ui` localmente) |
 | Estilos     | Tailwind CSS v4 |
-| Auth        | Login real con Authxolote (token bearer de Passport) |
+| Auth        | Login real con Authxolote + rotación de refresh token (bearer de Passport) |
 | SDK         | `axolote-source/authxolote-sdk` (service provider auto-descubierto) |
 
 ## Requisitos
@@ -174,9 +174,11 @@ antes de cambiar la configuración.
   (`modules/app`, `modules/messages`, `modules/authxolote`, `modules/auth`,
   `modules/errors`); `createBrowserRouter` envuelve cada ruta en
   `BlankLayout`/`DefaultLayout`.
-- **Auth:** `contexts/AxiosContext` (token + usuario, logout entre pestañas);
-  `services/auth/useServiceAuth` (login real). `configs/axiosConfig` agrega el
-  bearer y maneja el 401 (los 401 del menú nunca te desloguean).
+- **Auth:** `contexts/AxiosContext` (token + usuario, bootstrap de sesión, logout
+  entre pestañas); `services/auth/useServiceAuth` (login real). `configs/axiosConfig`
+  envía el bearer solo a los hosts autorizados y, ante 401, rota los tokens vía
+  `lib/authSession` y reintenta una vez. Los tokens viven en `lib/authStorage`
+  (`authToken`, `refreshToken`, `authSessionId`, `user`).
 - **Menú:** `hooks/useAppMenu` obtiene el menú unificado cuando hay sesión y
   alimenta la barra lateral. No hay fallback estático: la barra queda vacía
   hasta que responde Authxolote.

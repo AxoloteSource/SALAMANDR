@@ -135,6 +135,7 @@
   "email": "Email",
   "password": "Password",
   "sign_in": "Sign In",
+  "session_expired": "Your session expired. Please sign in again.",
   "invalid_email_format": "Invalid email format",
   "the_email_field_is_required": "The email field is required",
   "password_is_required": "Password is required",

@@ -6,7 +6,11 @@ import { AuthRoutes } from './modules/auth.routes'
 import { ErrorRoutes } from './modules/errors.routes'
 
 const PrivateRouteWrapper = ({ element, route }: { element: JSX.Element; route: IRoute }) => {
-  const { isAuth, user } = useAxios()
+  const { isAuth, user, isInitializing } = useAxios()
+
+  if (isInitializing) {
+    return <div className="flex min-h-screen items-center justify-center text-sm text-gray-400 dark:text-gray-500">Cargando...</div>
+  }
 
   return (
     <PrivateRoute
