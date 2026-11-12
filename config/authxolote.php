@@ -112,6 +112,19 @@ return [
                         'icon' => 'AppWindow',
                         'name' => 'applications',
                     ],
+                    'salamandr-auth-develop' => [
+                        'icon' => 'Code',
+                        'name' => 'develop',
+                        'roles' => ['root', 'admin'],
+                        'menu_items' => [
+                            'salamandr-auth-develop-personal-access-tokens' => [
+                                'path' => '/auth/develop/personal-access-tokens',
+                                'icon' => 'KeyRound',
+                                'name' => 'personal_access_tokens',
+                                'roles' => ['root', 'admin'],
+                            ],
+                        ],
+                    ],
                     'salamandr-auth-catalogs' => [
                         'icon' => 'Database',
                         'name' => 'menu.catalogs',

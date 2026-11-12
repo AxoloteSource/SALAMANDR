@@ -20,6 +20,7 @@ const AUTH = [
   '/auth/users',
   '/auth/user-lists',
   '/auth/applications',
+  '/auth/develop/personal-access-tokens',
   '/auth/menus',
   '/auth/menus/show',
   '/auth/catalogs/roles',
