@@ -44,39 +44,54 @@ Authxolote.
 
 ## Instalación
 
+Primero configura el entorno y después ejecuta los pasos de instalación.
+
 ```bash
-# 1. Dependencias PHP
+# 1. Entorno
+cp .env.example .env
+#   -> define APP_NAME, APP_URL, AUTHXOLOTE_URL, AUTHXOLOTE_TOKEN
+#      y las variables VITE_* (ver "Entorno" más abajo)
+
+# 2. Dependencias PHP
 composer install
 
-# 2. Entorno
-cp .env.example .env
+# 3. Clave de la aplicación
 php artisan key:generate
-#   -> define AUTHXOLOTE_TOKEN (ver "Sincronización del menú" más abajo)
 
-# 3. Base de datos (SQLite en database/database.sqlite; un clon nuevo no tiene archivo)
-touch database/database.sqlite
-php artisan migrate
-#   (no se requiere seeding — la auth es vía Authxolote)
-
-# 4. Dependencias del frontend (pnpm) + assets
+# 4. Dependencias del frontend + assets
 pnpm install
-pnpm build            # o: pnpm dev  (HMR)
+pnpm build            # o: pnpm dev (HMR)
 # Opcional: enlazar la librería UI local en lugar de la dependencia publicada:
 #   pnpm lib:local   # @axolotesource/ui = link:../ui   (pnpm lib:prod para revertir)
 
-# 5. Define AUTHXOLOTE_TOKEN en .env ANTES de sincronizar el menú (ver "Sincronización del menú")
-
-# 6. Recarga la config si editaste .env/config (antes de ejecutar o recargar la config de artisan)
+# 5. Recarga la config si editaste .env/config
 php artisan config:clear
 
-# 7. Sincroniza el menú unificado desde Authxolote
+# 6. Sincroniza el menú unificado desde Authxolote
 php artisan authxolote:menu
 ```
 
-> **Alternativa en un solo paso:** `composer run setup` ejecuta los mismos pasos
-> (composer install · `.env` · `key:generate` · touch SQLite · migrate · `pnpm install` ·
+> Si `php artisan authxolote:menu` falla, revisa el log de la aplicación en
+> `storage/logs/laravel.log` (o ejecuta `php artisan pail` en otra terminal):
+>
+> ```bash
+> tail -n 100 storage/logs/laravel.log
+> ```
+>
+> Ahí verás el error del SDK/HTTP. Las causas habituales son un
+> `AUTHXOLOTE_TOKEN` ausente o expirado, un `AUTHXOLOTE_URL` inaccesible o una
+> config `menu` vacía. Para más detalle, define `AUTHXOLOTE_DEBUG=true` en
+> `.env`, ejecuta `php artisan config:clear` y vuelve a intentarlo.
+
+> **Alternativa en un solo paso:** `composer run setup` ejecuta el equivalente
+> automatizado (composer install · `.env` · `key:generate` · `pnpm install` ·
 > `pnpm build`), y `composer run dev` ejecuta el stack completo de desarrollo
 > (`php artisan dev` → `serve` + `queue:listen` + `pail` + Vite).
+
+> **No se requiere base de datos.** Las sesiones y la caché usan archivos
+> (`storage/framework/`), la cola corre en `sync` y la autenticación se hace
+> contra Authxolote con tokens bearer. No necesitas SQLite, migraciones ni
+> variables `DB_*`.
 
 ## Entorno
 
@@ -86,7 +101,6 @@ Las `VITE_*` las lee el frontend; las `AUTHXOLOTE_*` las lee Laravel.
 | ----- | --------- | ------- |
 | `APP_NAME` | Nombre de la app (definido como `Salamandr`; `.env.example` trae `Laravel`) | `Salamandr` |
 | `APP_URL` | URL de Laravel (mantenla consistente con cómo sirves) | `http://localhost:8000` |
-| `DB_CONNECTION` | Base de datos de SALAMANDR | `sqlite` |
 | `VITE_APP_URL` | Base de la API propia de SALAMANDR (`"${APP_URL}"`) | `http://localhost:8000` |
 | `VITE_MESSAGES_URL` | Base de la API de LaraAxMessages | `https://laraaxmessages.test` |
 | `VITE_AUTH_URL` | Base de la API de Authxolote (login + fuente del menú) | `https://authxolote.test` |
@@ -94,6 +108,7 @@ Las `VITE_*` las lee el frontend; las `AUTHXOLOTE_*` las lee Laravel.
 | `VITE_ENABLE_LIVE_MENUS` | `true` = obtiene el menú en vivo desde Authxolote; `false` = sin menú | `true` |
 | `VITE_REAL_AUTH` | `true` = login real + auto-logout en 401; `false` = demo | `true` |
 | `AUTHXOLOTE_URL` | Base de Authxolote para el SDK/artisan | `https://authxolote.test` |
+| `AUTHXOLOTE_SYNC_USER` | `false` = usa el usuario de la API directamente (sin BD local) | `false` |
 | `AUTHXOLOTE_TOKEN` | Token de autor para `authxolote:menu` | *(secreto — vacío en `.env.example`)* |
 
 > Nunca hagas commit de secretos reales. `AUTHXOLOTE_TOKEN` está intencionalmente
@@ -135,6 +150,9 @@ auth + grupo messages). Luego la SPA carga
 `GET {VITE_AUTH_URL}/api/v1/menus/salamandr` tras el login. Requiere
 `AUTHXOLOTE_URL`, `AUTHXOLOTE_TOKEN` y una config `menu` no vacía.
 
+Si `php artisan authxolote:menu` falla, revisa `storage/logs/laravel.log`
+antes de cambiar la configuración.
+
 ## Scripts del frontend
 
 | Script | Descripción |
@@ -170,13 +188,11 @@ auth + grupo messages). Luego la SPA carga
 
 ## Consideraciones
 
-1. **Un clon nuevo no tiene archivo SQLite** — ejecuta `touch database/database.sqlite`
-   (de lo contrario Laravel lo solicita). El archivo está en gitignore (`database/.gitignore`).
-2. **Los slugs de los ítems del menú son globalmente únicos en Authxolote** — las
+1. **Los slugs de los ítems del menú son globalmente únicos en Authxolote** — las
    claves de config van con namespace `salamandr-*` (p. ej. `salamandr-auth-users`);
    claves simples como `home`/`ui`/`roles` chocan entre menús.
-3. `.env.example` deja intencionalmente `AUTHXOLOTE_TOKEN` vacío (y también la config
+2. `.env.example` deja intencionalmente `AUTHXOLOTE_TOKEN` vacío (y también la config
    `menu`); define ambos antes de `authxolote:menu`.
-4. El SDK está fijado a `dev-main` (correcto bajo `minimum-stability: stable`).
-5. Obtener el menú en vivo requiere la acción `auth.menus.show` en el rol del
+3. El SDK está fijado a `dev-main` (correcto bajo `minimum-stability: stable`).
+4. Obtener el menú en vivo requiere la acción `auth.menus.show` en el rol del
    usuario (Root la omite).

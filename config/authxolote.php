@@ -59,7 +59,7 @@ return [
     | Set to true to search in the database, false to use API data.
     |
     */
-    'sync_user' => env('AUTHXOLOTE_SYNC_USER', true),
+    'sync_user' => env('AUTHXOLOTE_SYNC_USER', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -208,22 +208,6 @@ return [
                         'path' => '/messages/campaigns',
                         'icon' => 'Megaphone',
                         'name' => 'campaigns',
-                    ],
-                    'salamandr-messages-config' => [
-                        'icon' => 'Settings',
-                        'name' => 'config',
-                        'menu_items' => [
-                            'salamandr-messages-config-drivers' => [
-                                'path' => '/messages/config/drivers',
-                                'icon' => 'Cpu',
-                                'name' => 'drivers',
-                            ],
-                            'salamandr-messages-config-providers' => [
-                                'path' => '/messages/config/providers',
-                                'icon' => 'Server',
-                                'name' => 'providers',
-                            ],
-                        ],
                     ],
                 ],
             ],
