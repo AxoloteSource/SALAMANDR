@@ -12,10 +12,12 @@ export enum RoutesApp {
 export const appRoutes: IRoute[] = [
   {
     path: RoutesApp.Home,
-    element: <HomePage />
+    element: <HomePage />,
+    private: true
   },
   {
     path: RoutesApp.Dashboard,
-    element: <DashboardPage />
+    element: <DashboardPage />,
+    private: true
   }
 ]
