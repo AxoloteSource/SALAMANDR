@@ -34,7 +34,7 @@ export const useRoleActionPage = () => {
   ]
 
   const renderersMap = {
-    actions: (data: IAction) => <ActionSwitch data={data} />
+    actions: (data: IAction) => <ActionSwitch key={data.id} data={data} />
   }
 
   return {
