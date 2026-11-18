@@ -1,0 +1,52 @@
+x-build: &build
+  context: .
+  dockerfile: Dockerfile
+  args:
+    VITE_APP_NAME: ${VITE_APP_NAME:-Salamandr}
+    VITE_APP_URL: ${VITE_APP_URL:-http://localhost:8084}
+    VITE_AUTH_URL: ${VITE_AUTH_URL:-http://localhost:8081}
+    VITE_MESSAGES_URL: ${VITE_MESSAGES_URL:-http://localhost:8082}
+    VITE_MENU_SLUG: ${VITE_MENU_SLUG:-salamandr}
+    VITE_REAL_AUTH: ${VITE_REAL_AUTH:-true}
+    VITE_ENABLE_LIVE_MENUS: ${VITE_ENABLE_LIVE_MENUS:-true}
+    GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+
+x-environment: &environment
+  APP_NAME: ${APP_NAME:-Salamandr}
+  APP_ENV: ${APP_ENV:-production}
+  APP_DEBUG: ${APP_DEBUG:-false}
+  APP_KEY: ${APP_KEY}
+  APP_URL: ${APP_URL:-http://localhost:8084}
+  APP_LOCALE: ${APP_LOCALE:-es}
+  LOG_CHANNEL: ${LOG_CHANNEL:-stack}
+  LOG_LEVEL: ${LOG_LEVEL:-error}
+  SESSION_DRIVER: ${SESSION_DRIVER:-file}
+  CACHE_STORE: ${CACHE_STORE:-file}
+  QUEUE_CONNECTION: ${QUEUE_CONNECTION:-sync}
+  FILESYSTEM_DISK: ${FILESYSTEM_DISK:-local}
+  AUTHXOLOTE_URL: ${AUTHXOLOTE_URL}
+  AUTHXOLOTE_TOKEN: ${AUTHXOLOTE_TOKEN:-}
+  AUTHXOLOTE_SYNC_USER: ${AUTHXOLOTE_SYNC_USER:-false}
+  AUTHXOLOTE_CACHE: ${AUTHXOLOTE_CACHE:-true}
+  SYNC_AUTHXOLOTE: ${SYNC_AUTHXOLOTE:-true}
+
+services:
+  app:
+    build: *build
+    image: salamandr
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8084}:80"
+    environment: *environment
+    networks:
+      - default
+      - coolify
+    volumes:
+      - storage:/app/storage
+
+networks:
+  coolify:
+    external: true
+
+volumes:
+  storage:
